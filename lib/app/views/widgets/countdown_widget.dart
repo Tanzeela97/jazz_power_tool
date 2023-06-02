@@ -29,19 +29,19 @@ class CountdownWidget extends StatelessWidget {
         children: [
           ButtonText2(
             text: "Next($next)",
-            fontSize: 10.w,
+            fontSize: 10.w, fontWeight: FontWeight.w300,
           ),
           SizedBox(
             height: 5.h,
           ),
           ButtonText2(
             text: "$time",
-            fontSize: 10.w,
+            fontSize: 10.w,fontWeight: FontWeight.w300,
           ),
           SizedBox(
             height: 5.h,
           ),
-          ButtonText2(
+          ButtonText2(fontWeight: FontWeight.w300,
             text:
                 "${duration.toString().split(':')[0]}:${duration.toString().split(':')[1]}",
             fontSize: 10.w,

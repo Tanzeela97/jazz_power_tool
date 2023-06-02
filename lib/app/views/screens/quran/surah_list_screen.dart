@@ -56,9 +56,9 @@ class _SurahListScreenState extends State<SurahListScreen> {
                          color: AppColor.fontColorButton,
                       ),
                     ),
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: AppColor.red,
-                      borderRadius: const BorderRadius.only(
+                      borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(15),
                         bottomRight: Radius.circular(15),
                       ),

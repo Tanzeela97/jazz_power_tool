@@ -24,7 +24,7 @@ class KText2 extends StatelessWidget {
         fontFamily: 'Jameel Noori Nastaleeq',
         fontSize: fontSize,
         fontWeight: FontWeight.w400,
-        color: AppColor.fontColor,
+        color: AppColor.black,
       ),
     );
   }

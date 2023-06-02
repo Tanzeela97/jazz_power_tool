@@ -5,12 +5,13 @@
 //   static AppConfig? _instance;
 //
 //   MediaQueryData _mediaQueryData;
-//   double _screenWidth;
-//   double _screenHeight;
-//   double _blockSizeHorizontal;
-//   double _blockSizeVertical;
-//   double safeBlockHorizontal;
-//   double safeBlockVertical;
+//   double? _screenWidth;
+//   double? _screenHeight;
+//   double? _blockSizeHorizontal;
+//   double? _blockSizeVertical;
+//   double? safeBlockHorizontal;
+//   double?safeBlockVertical;
+//
 //
 //   factory AppConfig.of(BuildContext context) {
 //     _instance ??= AppConfig(context);

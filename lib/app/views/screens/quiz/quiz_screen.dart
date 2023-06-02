@@ -69,7 +69,7 @@ class _QuizPageState extends State<QuizPage> {
                     color: AppColor.red,
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: ButtonText2(
+                  child: ButtonText2(fontWeight: FontWeight.w300,
                     text: 'Score: $_totalScore',
                     fontSize: 20.sp,
                   ),
@@ -124,6 +124,7 @@ class _QuizPageState extends State<QuizPage> {
                             ],
                           ),
                           child: ButtonText2(
+                            fontWeight: FontWeight.w300,
                             text: answer['text'].toString(),
                             fontSize: 26.sp,
                           ),

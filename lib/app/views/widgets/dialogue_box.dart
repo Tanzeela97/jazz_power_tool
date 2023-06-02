@@ -35,7 +35,7 @@ Future<dynamic> citySelectDialogue(
                           title: KText1(
                               text: 'City',
                               fontSize: 18.sp,
-                              fontWeight: FontWeight.w500),
+                              fontWeight: FontWeight.w500, fontFamily: '',),
                         )),
               ),
             ),

@@ -8,7 +8,7 @@ class KText1 extends StatelessWidget {
   //  super.key,
     required this.text,
     required this.fontSize,
-    required this.fontWeight,
+    required this.fontWeight, required String fontFamily,
   });
 
   final String text;
@@ -24,7 +24,7 @@ class KText1 extends StatelessWidget {
       style: GoogleFonts.inter(
         fontSize: fontSize,
         fontWeight: fontWeight,
-        color: AppColor.fontColor,
+        color: AppColor.black,
       ),
     );
   }

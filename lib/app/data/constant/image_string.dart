@@ -9,8 +9,8 @@ class ImageString {
   static const ImageProvider homeIcon = AssetImage('assets/images/home.png');
   static const ImageProvider profileIcon =
       AssetImage('assets/images/profile.png');
-  static const ImageProvider faviconAppbar =
-      AssetImage('assets/images/favicon.png');
+  static const ImageProvider jazzLogo =
+      AssetImage('assets/images/jazz_logo.png');
   static const ImageProvider proPic = AssetImage('assets/images/pro_pic.png');
 
   ///
@@ -62,8 +62,27 @@ class ImageString {
   static const ImageProvider islamicCard = AssetImage('assets/images/card1.png');
   static const ImageProvider news = AssetImage('assets/assets/news.png');
 
+  static const ImageProvider jokeEnglish = AssetImage('assets/images/joke_english.png');
+  static const ImageProvider jokeUrdu = AssetImage('assets/images/joke_urdu.png');
 
+  static const ImageProvider rightArrow = AssetImage('assets/assets/right_arrow.png');
+  static const ImageProvider leftArrow = AssetImage('assets/assets/left_arrow.png');
+  static const ImageProvider splashScreen1 = AssetImage('assets/images/splash_screen1.png');
+  static const ImageProvider splashScreen2 = AssetImage('assets/images/splash_screen2.png');
+  static const ImageProvider splashScreen3 = AssetImage('assets/images/splash_screen3.png');
+  static const ImageProvider paksistan = AssetImage('assets/assets/pakistan.png');
 
+  static const ImageProvider backgroundSplash3 = AssetImage('assets/images/background_splash.png');
+  static const ImageProvider shuruBtn = AssetImage('assets/images/shuru_btn.png');
+  static const ImageProvider ayatBackground = AssetImage('assets/images/ayat_background.png');
+  static const ImageProvider fajar = AssetImage('assets/assets/fajar.png');
+  static const ImageProvider zohar = AssetImage('assets/assets/zohar.png');
+  static const ImageProvider asar = AssetImage('assets/assets/asar.png');
+  static const ImageProvider maghrib = AssetImage('assets/assets/maghrib.png');
+  static const ImageProvider isha = AssetImage('assets/assets/isha.png');
+
+  static const ImageProvider bellIcon = AssetImage('assets/assets/bell.png');
+  static const ImageProvider locationIcon = AssetImage('assets/assets/location.png');
 
 
 

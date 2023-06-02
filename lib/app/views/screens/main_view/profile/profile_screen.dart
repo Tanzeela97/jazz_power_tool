@@ -201,7 +201,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       color: AppColor.inactiveButtonColor,
                     ),
                     child: Image(
-                      image: ImageString.faviconAppbar,
+                      image: ImageString.jazzLogo,
                       width: 30.w,
                       height: 30.h,
                     ),

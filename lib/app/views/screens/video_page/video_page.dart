@@ -71,7 +71,7 @@ class _VideoPageState extends State<VideoPage> {
                           child: ClipRRect(
                             borderRadius: BorderRadius.all(Radius.circular(8)),
                             child: Image(
-                              image: ImageString.faviconAppbar,
+                              image: ImageString.jazzLogo,
                               width: 106.w,
                               height: 73.h,
                               fit: BoxFit.cover,
@@ -115,7 +115,7 @@ class _VideoPageState extends State<VideoPage> {
                                 KText1(
                                   text: "Masail",
                                   fontSize: 20.w,
-                                  fontWeight: FontWeight.w600,
+                                  fontWeight: FontWeight.w600, fontFamily: '',
                                 ),
                                 SizedBox(
                                   height: 5.h,
@@ -123,7 +123,7 @@ class _VideoPageState extends State<VideoPage> {
                                 KText1(
                                   text: "Mojuda Mahine k Bayanat",
                                   fontSize: 18.w,
-                                  fontWeight: FontWeight.w400,
+                                  fontWeight: FontWeight.w400, fontFamily: '',
                                 ),
                               ],
                             ),
