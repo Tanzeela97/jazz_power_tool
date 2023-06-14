@@ -35,10 +35,10 @@ class OnboardingScreenThree extends StatelessWidget {
             Container(
               width: double.infinity,
               height: double.infinity,
-              decoration:  const BoxDecoration(
+              decoration:   const BoxDecoration(
                 image: DecorationImage(
-                  image: ImageString.backgroundSplash3,
-                  fit: BoxFit.cover,
+                  image: ImageString.welcomeScreen,
+                  fit: BoxFit.fill,
                 ),
               ),
               child: Center(
@@ -51,20 +51,20 @@ class OnboardingScreenThree extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox(height: 20.h,),
-                      Text(
-                        "اب حاصل کرے بھرپور سہولت جاز جذبہ کے ساتھ",
-                        textAlign: TextAlign.center,
-                        maxLines: 4,
-                        style: TextStyle(
-                          fontSize: 55.sp,
-
-                          color: AppColor.white,
-                          fontFamily: "Jameel Noori Nastaleeq",
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      // Text(
+                      //   "اب حاصل کرے بھرپور سہولت جاز جذبہ کے ساتھ",
+                      //   textAlign: TextAlign.center,
+                      //   maxLines: 4,
+                      //   style: TextStyle(
+                      //     fontSize: 55.sp,
+                      //
+                      //     color: AppColor.white,
+                      //     fontFamily: "Jameel Noori Nastaleeq",
+                      //     fontWeight: FontWeight.bold,
+                      //   ),
+                      // ),
                       SizedBox(
-                        height: 100.h,
+                        height: 360.h,
                       ),
                       // TextButton(
                       //   onPressed: () {
@@ -109,9 +109,9 @@ class OnboardingScreenThree extends StatelessWidget {
 
                             },
                             child: Image(
-                              image: ImageString.shuruBtn,
-                              height: 100.h,
-                              width: 200.w,
+                              image: ImageString.start,
+                              height: 80.h,
+                              width: 320.w,
                             ),
                           ),
                         ),

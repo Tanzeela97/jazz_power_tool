@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:cache_manager/core/delete_cache_service.dart';
 import 'package:cache_manager/core/read_cache_service.dart';
@@ -12,13 +13,16 @@ import 'package:get_storage/get_storage.dart';
 import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'package:jazzpowertoolsapp/app/data/constant/app_color.dart';
+import 'package:jazzpowertoolsapp/app/model/joke.dart';
+import 'package:jazzpowertoolsapp/app/views/screens/main_view/joke/joke.dart';
 
+import '../../data/constant/image_string.dart';
 import '../../data/constant/storage_string.dart';
 import '../../model/authentication.dart';
+import '../../model/ayat_of_the_day.dart';
 import '../../model/city.dart';
 import '../../model/namaz_time_day.dart';
 import '../../model/news_feed.dart' as news_data;
-
 
 import '../../model/forex.dart' as forex_list;
 import '../../model/news_feed.dart';
@@ -27,7 +31,8 @@ import '../../services/remote_services.dart';
 const store_key = StorageString.NewsStorageKey;
 
 class HomeScreenController extends GetxController {
-  RxList<news_data.Data> newsList = <news_data.Data>[].obs;
+  //RxList<news_data.Data> newsList = <news_data.Data>[].obs;
+  List<news_data.Data> newsList = [];
 
   List<City> cities = [];
   City selectedCity = City.fromJson({
@@ -65,22 +70,51 @@ class HomeScreenController extends GetxController {
       timeDayAsr = "",
       timeDayMaghrib = "",
       timeDayIsha = "";
-
+  late AyatOfTheDay ayatOfTheDay;
+  late JokeOfTheDay jokeOfTheDay;
+  bool isLoadingNews = false;
   late Duration nextNamazDuration;
   late Duration elapsedDuration;
   String? currentNamaz;
   String? nextNamaz;
 
+  //
   final _newsList = <NewsFeed>[].obs;
 
   get news_List => _newsList.value;
 
+ String lang = window.locale.languageCode;
+
   HomeScreenController(web) {
     setWeb(web);
-    //loadCities();
+
+    getFetchNewsFeed(lang);
     getNamazTimings(selectedCity);
-    getFetchNewsFeed();
+    newsData(lang);
   }
+
+ changeLanguage(String newLang) async {
+    isLoading = true;
+    newsList = [];
+    update();
+    newsList = await RemoteServices.fetchNewsData(newLang);
+    isLoading = false;
+
+    update();
+  }
+
+  Future<void> newsData(String lang) async {
+    update();
+//    String lang = Get.locale!.toLanguageTag();
+    try {
+      update();
+      await getFetchNewsFeed( lang );
+      update();
+    } catch (error) {
+      print('Error occurred: $error');
+    }
+  }
+
   setLogout() async {
     login = false;
     subscription = false;
@@ -96,31 +130,38 @@ class HomeScreenController extends GetxController {
 
   Future<void> onRefresh() async {
     timer!.cancel();
-   await getNamazTimings(selectedCity);
+    await getNamazTimings(selectedCity);
+    await getFetchNewsFeed(   Get.locale!.toLanguageTag());
   }
 
+  loadCities() async {
+    // isLoading = true;
+    // cities = await RemoteServices.getCityList();
+    // // isLoading = false;
+    // update();
+  }
 
-  // loadCities() async {
-  //   isLoading = true;
-  //   cities = await RemoteServices.getCityList();
-  //   // isLoading = false;
-  //   update();
-  // }
+  selectCity(City city) async {
+    selectedCity = city;
+    await getNamazTimings(selectedCity);
+    update();
+  }
 
+  logout() async {
+    login = false;
 
+    name = "Hello";
 
-  // selectCity(City city) async {
-  //   selectedCity = city;
-  //   await getNamazTimings(selectedCity);
-  //   update();
-  // }
+    await DeleteCache.deleteKey("login");
+    await DeleteCache.deleteKey("name");
+    await DeleteCache.deleteKey("fiqh");
+
+    update();
+  }
 
   final box = GetStorage();
 
-//  Logger.level = Level.debug;
-
   List<news_data.Data> newsFeeds = [];
-  List<forex_list.Data> forex = [];
 
   // Future<List<NewsFeed>> getFetchNewsFeed() async {
   //   try {
@@ -143,57 +184,38 @@ class HomeScreenController extends GetxController {
   //   return newsList;
   // }
 
-  Future<void>  getFetchNewsFeed() async {
+  Future<void> getFetchNewsFeed(String lang) async {
+    update();
     try {
-
-      final List<news_data.Data> newsList = (await RemoteServices.fetchNewsData());
+      update();
+      final List<news_data.Data> newsList =
+          (await RemoteServices.fetchNewsData(lang));
       if (newsList != null) {
-        // Update the newsFeeds variable with the fetched data
-        // Decode the response data using UTF-8 encoding
-       newsFeeds = newsList;
-
+        newsFeeds = newsList;
+        update();
       } else {
-        // Handle the case when the API response is null
-        print('API response is null');
+
+        //  print('API response is null');
       }
     } catch (err) {
-      // Handle the error state
+
       print('Error state: $err');
     }
   }
-///forex api
-  Future<void>  getForex() async {
-    try {
-
-      final List<forex_list.Data> forexList = (await RemoteServices.getForexData());
-      if (forexList != null) {
-        // Update the newsFeeds variable with the fetched data
-        // Decode the response data using UTF-8 encoding
-        forex = forexList;
-        print(forexList.first.buying);
-
-        print('Success state');
-      } else {
-        // Handle the case when the API response is null
-        print('API response is null');
-      }
-    } catch (err) {
-      // Handle the error state
-      print('Error state: $err');
-    }
-  }
-
-
 
   getNamazTimingsAPICall(City city) async {
     isLoading = true;
     print("api call");
+
+    ///ayat
+    ayatOfTheDay = await RemoteServices.getAyatOfTheDay();
+
+    ///joke
+    jokeOfTheDay = await RemoteServices.getJokeOfTheDay();
+    newsList = await RemoteServices.fetchNewsData(   Get.locale!.toLanguageTag());
     namazTimeDay = await RemoteServices.getNamazTimings(city);
     if (kIsWeb) {
-
-    } else {
-
-    }
+    } else {}
 
     print(namazTimeDay.dateStr);
 
@@ -232,18 +254,14 @@ class HomeScreenController extends GetxController {
 
   getNamazTimings(City city) async {
     if (kIsWeb) {
-     // trending = [];
+      // trending = [];
     }
-    // final SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    // login = await ReadCache.getBool(key: "login") ?? false;
 
     subscription = await ReadCache.getBool(key: 'subscription') ?? false;
     number = await ReadCache.getString(key: "number") ?? "";
 
-    // print("$subscription $number");
+
     final String? date = await ReadCache.getString(key: 'date_str');
-    print(date);
 
 
     String? dateStr;
@@ -251,73 +269,50 @@ class HomeScreenController extends GetxController {
       dateStr = date.split('-').reversed.join('-');
       final days = DateTime.parse(dateStr).difference(DateTime.now());
       dateStr = date;
-      print(days.inDays);
+      // print(days.inDays);
       if (days.inDays < 0 || cityChanged) {
         cityChanged = false;
         await getNamazTimingsAPICall(city);
         NamazTimeDay timeDay =
-        NamazTimeDay.fromJson(await ReadCache.getJson(key: "namaztimeday"));
+            NamazTimeDay.fromJson(await ReadCache.getJson(key: "namaztimeday"));
         namazTimeDay = timeDay;
-        print(namazTimeDay.dateStr);
+        //print(namazTimeDay.dateStr);
         final List<String>? stringList =
-        await ReadCache.getStringList(key: 'durations');
+            await ReadCache.getStringList(key: 'durations');
         List<Duration> durations = [];
         for (var d in stringList!) {
           durations.add(Duration(minutes: int.parse(d)));
         }
-        print(dateStr);
+        // print(dateStr);
         calculateDurations(dateStr, timeDay, durations);
       } else {
-        // print("shared");
 
-        // if (kIsWeb == false) {
-        //  // trending = [];
-        //   dynamic result = await ReadCache.getJson(key: "trending") ?? {};
-        //   if (result != null) {
-        //   //  trending = [];
-        //     for (var r in result["data"]) {
-        //       print(r);
-        //       //trending.add(Trending.fromJson(r));
-        //     }
-        //   }
-        // }
+        ayatOfTheDay = AyatOfTheDay.fromJson(
+            await ReadCache.getJson(key: "ayat_of_the_day"));
+        jokeOfTheDay = JokeOfTheDay.fromJson(
+            await ReadCache.getJson(key: "joke_of_the_day"));
+        NewsFeed news = NewsFeed.fromJson(await ReadCache.getJson(key: "news"));
 
         NamazTimeDay timeDay =
-        NamazTimeDay.fromJson(await ReadCache.getJson(key: "namaztimeday"));
+            NamazTimeDay.fromJson(await ReadCache.getJson(key: "namaztimeday"));
         namazTimeDay = timeDay;
         final List<String>? stringList =
-        await ReadCache.getStringList(key: 'durations');
+            await ReadCache.getStringList(key: 'durations');
         List<Duration> durations = [];
         for (var d in stringList!) {
           durations.add(Duration(minutes: int.parse(d)));
         }
-        print(dateStr);
+        // print(dateStr);
         calculateDurations(dateStr, timeDay, durations);
       }
     } else {
       print("Exception");
       await getNamazTimingsAPICall(city);
-      print("Exception1");
-      // if (kIsWeb == false) {
-      //  // trending = [];
-      //   dynamic result = await ReadCache.getJson(key: "trending") ?? {};
-      //
-      //   if (result != null) {
-      //    // trending = [];
-      //     for (var r in result["data"]) {
-      //       print(r);
-      //     //  trending.add(Trending.fromJson(r));
-      //     }
-      //   }
-      // }
 
       dateStr = namazTimeDay.dateStr;
       calculateDurations(dateStr, namazTimeDay, null);
     }
-    // print("${namazTimeDay.dateStr} ${namazTimeDay.fajr}");
-    // Extract the date string into a separate variable for readability
 
-// Define an array of prayer times in the order they occur
   }
 
   calculateDurations(
@@ -332,13 +327,9 @@ class HomeScreenController extends GetxController {
       timeDay.isha,
     ];
 
-
     dateStr = dateStr!.split('-').reversed.join('-');
-    // print("date2:  $dateStr");
-    print("fajr: ${"$dateStr ${namazTimeDay.fajr}"}");
+
     if (durations == null) {
-
-
       durations = [
         for (var i = 0; i < prayerTimes.length - 1; i++)
           DateTime.parse('$dateStr ${prayerTimes[i + 1]}')
@@ -353,11 +344,10 @@ class HomeScreenController extends GetxController {
 
     Map namaz = {};
     for (int i = 0, j = 1; i < prayerTimes.length; i++, j++) {
-      print(
-          "${prayerTimes[i]} ${DateTime.parse("$dateStr ${prayerTimes[i]}").difference(DateTime.now()).inMinutes} ${const Duration(minutes: 0).inMinutes} ${durations[i].inMinutes}");
+
       if (DateTime.parse("$dateStr ${prayerTimes[i]}")
-          .difference(DateTime.now())
-          .inMinutes >
+              .difference(DateTime.now())
+              .inMinutes >
           const Duration(minutes: 0).inMinutes) {
         // print(i);
         namaz = {
@@ -418,12 +408,12 @@ class HomeScreenController extends GetxController {
         .format(DateTime.parse("$dateStr ${namazTimeDay.maghrib}"));
     eshaTime = DateFormat('jm')
         .format(DateTime.parse("$dateStr ${namazTimeDay.isha}"));
-    print(namaz);
+    // print(namaz);
     nextNamazDuration = Duration(minutes: namaz["duration"]);
-    print(
-        "${DateTime.parse(namaz['prayer_time']).add(const Duration(days: 1)).difference(DateTime.now())} ${DateTime.parse(namaz['prayer_time']).add(const Duration(days: 1))}");
+    // print(
+    //     "${DateTime.parse(namaz['prayer_time']).add(const Duration(days: 1)).difference(DateTime.now())} ${DateTime.parse(namaz['prayer_time']).add(const Duration(days: 1))}");
     final days = DateTime.parse(dateStr).difference(DateTime.now());
-    print("dayss ${days.inHours}");
+    //print("dayss ${days.inHours}");
     if (currentNamaz == "isha" && days.inHours < 8 && days.inHours < -15) {
       elapsedDuration = DateTime.parse(namaz['prayer_time'])
           .add(const Duration(days: 1))
@@ -437,7 +427,7 @@ class HomeScreenController extends GetxController {
     int elapsedTime = next - elapsedD!;
     refres = ((next / 60) * 60).round();
 
-    print("${next} $elapsedTime");
+    //   print("${next} $elapsedTime");
     // elapsedDuration = Duration(minutes: elapsedTime);
     nextDuration = nextNamazDuration;
     nextNamazDuration = Duration(minutes: ((next / (next)) * 60).round());
@@ -504,43 +494,35 @@ class HomeScreenController extends GetxController {
       timeDayIsha = "time_day_m".tr;
     }
 
-    // nextNamazDuration =
-    //     Duration(seconds: ((nextNamazDuration.inMinutes / 60) * 100).round());
-    // elapsedDuration =
-    //     Duration(seconds: ((elapsedDuration.inMinutes / 60) * 100).round());
-
-    print("${nextNamazDuration.inMinutes} ${elapsedDuration.inMinutes}");
 
     nextNamazTimer();
     isLoading = false;
     update();
   }
 
-
   nextNamazTimer() async {
     print("refresh $refres");
     timer = Timer.periodic(Duration(seconds: refres), (timer) async {
-      // print(nextNamazDuration.inMinutes);
-      print(refres);
+
       elapsedDuration += Duration(minutes: 1);
-      print(elapsedDuration.inMinutes);
+
       update();
-      // print("${elapsedDuration.inMinutes} >= ${nextNamazDuration.inMinutes}");
+
       if (elapsedDuration.inMinutes >= nextNamazDuration.inMinutes - 1) {
         timer.cancel();
         update();
 
-        // final SharedPreferences prefs = await SharedPreferences.getInstance();
+
 
         final List<String>? stringList =
-        await ReadCache.getStringList(key: 'durations');
+            await ReadCache.getStringList(key: 'durations');
         final String? date = await ReadCache.getString(key: 'date_str');
-        print("current: $nextNamaz");
+
         String dateStr = date!.split('-').reversed.join('-');
         final days = DateTime.parse(dateStr).difference(DateTime.now());
-        print("${days.inDays} ${days.inHours} $date ${DateTime.now()}");
-        if (currentNamaz == "fajsr") {
-          print("going for api");
+
+        if (currentNamaz == "fajar") {
+
           getNamazTimings(selectedCity);
           update();
           return;
@@ -557,7 +539,6 @@ class HomeScreenController extends GetxController {
   }
 
   void firstLoad() async {
-
     cities = [];
     start = 0;
     end = 15;
@@ -567,7 +548,7 @@ class HomeScreenController extends GetxController {
   }
 
   void loadMore() async {
-   if (isFirstLoadRunning == false && isLoadMoreRunning == false) {
+    if (isFirstLoadRunning == false && isLoadMoreRunning == false) {
       isLoadMoreRunning = true; // Display a progress indicator at the bottom
       update();
       start += 15;
@@ -659,5 +640,24 @@ class HomeScreenController extends GetxController {
         textColor: AppColor.white,
         fontSize: 16.0);
   }
-}
 
+  setName(String val) {
+    if (val.isNotEmpty) {
+      name = val;
+    }
+    update();
+  }
+
+  ImageProvider genderImage = ImageString.proPicMale;
+
+  checkGender() async {
+    var result = await ReadCache.getString(key: "gender") ?? "female";
+    // print(result);
+    if (result == "male") {
+      genderImage = ImageString.proPicMale;
+    } else if (result == "female") {
+      genderImage = ImageString.proPicFemale;
+    }
+    update();
+  }
+}

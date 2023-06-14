@@ -13,8 +13,10 @@ class RouteString {
 
   static const login = '/login';
   static const otpVerification = '/otpVerification';
+  static const newsDescription = '/newsDescription';
 
   static const cityListScreen = '/cityListScreen';
 
+  static const profileDetail = '/profileDetail';
 
 }

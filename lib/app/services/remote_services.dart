@@ -2,11 +2,19 @@
 import 'dart:convert';
 
 import 'package:cache_manager/core/write_cache_service.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:jazzpowertoolsapp/app/model/joke.dart';
 
 import '../data/json_data/constant_cities.dart' as c;
+import '../data/json_data/constant_ayat.dart' as a;
+import '../data/json_data/constant_joke.dart' as jokes;
+import '../model/ayat_of_the_day.dart';
+import '../model/ayat.dart';
 
 import '../data/constant/api_string.dart';
 import '../model/authentication.dart';
+
 import '../model/city.dart';
 import '../model/forex.dart' as forex;
 import '../model/namaz_time_day.dart';
@@ -25,6 +33,39 @@ class RemoteServices {
     }
   }
 
+  // static Future getAyats(Surah surah, int start, String tr) async {
+  //   var parse = Uri.parse(ApiString.baseUrl);
+  //   var uri = Uri.https(parse.authority, ApiString.quran_endpoint, {
+  //     'surah': surah.no.toString(),
+  //     'ayat': start.toString(),
+  //     'limit': "10",
+  //     'lang': "ar,$tr",
+  //   });
+  //   // print(uri);
+  //   dynamic response = await FecthApiService.get(uri: uri);
+  //   // print(response);
+  //
+  //   // if (response[0]['status'] == 'failed') {
+  //   //   return null;
+  //   // }
+  //
+  //   for (var ayats in response["data"]) {
+  //     if (ayats["lang"] == "AR") {
+  //       surah.arAyat.add(Ayat.fromJson(ayats));
+  //     }
+  //     if (ayats["lang"] == "UR") {
+  //       surah.trAyat.add(Ayat.fromJson(ayats));
+  //     }
+  //     if (ayats["lang"] == "EN") {
+  //       surah.trAyat.add(Ayat.fromJson(ayats));
+  //     }
+  //   }
+  //
+  //   print(response["count"] / 3);
+  //
+  //   return surah;
+  // }
+  //
 
   static Future getNamazTimings(City city) async {
     var parse = Uri.parse(ApiString.baseUrl);
@@ -42,6 +83,51 @@ class RemoteServices {
 
     return NamazTimeDay.fromJson(response);
   }
+  ///ayat hardcoded through json
+  static Future getAyatOfTheDay() async {
+    try {
+      var objList = a.ayat;
+      var index = DateTime.now().day;
+      index -= 1;
+      var ayatOfTheDay = objList.elementAt(index);
+      await WriteCache.setJson(key: "ayat_of_the_day", value: ayatOfTheDay);
+      return AyatOfTheDay.fromJson(ayatOfTheDay);
+    } on Exception catch (err) {
+      print(
+          "Something went wrong on RemoteServices -> AyatOfTheDayList() ${err}");
+      throw Error();
+    }
+  }
+
+  ///joke hardcoded through json
+  static Future<JokeOfTheDay> getJokeOfTheDay() async {
+    try {
+      var objList = jokes.jokes;
+      var index = DateTime.now().day - 1;
+      index = index % objList.length; // Wrap index within the range of objList
+      var jokeOfTheDay = objList[index];
+      await WriteCache.setJson(key: "joke_of_the_day", value: jokeOfTheDay);
+      return JokeOfTheDay.fromJson(jokeOfTheDay);
+    } on Exception catch (err) {
+      print("Something went wrong on RemoteServices -> getJokeOfTheDay() $err");
+      throw Error();
+    }
+  }
+
+  // static Future getJokeOfTheDay() async {
+  //   try {
+  //     var objList = jokes.jokes;
+  //     var index = DateTime.now().day;
+  //     index -= 1;
+  //     var jokeOfTheDay = objList.elementAt(index);
+  //     await WriteCache.setJson(key: "joke_of_the_day", value: jokeOfTheDay);
+  //     return JokeOfTheDay.fromJson(jokeOfTheDay);
+  //   } on Exception catch (err) {
+  //     print(
+  //         "Something went wrong on RemoteServices ->JokeOfTheDayList() ${err}");
+  //     throw Error();
+  //   }
+  // }
 
 //    Future getNewsFeed(String? sourceList, {String? responseString}) async {
 //     var endpointUrl = ApiString.newsFeedUrl;
@@ -65,14 +151,25 @@ class RemoteServices {
 //
 // }
 ///News Api
-  static  Future<List<news_feed.Data>>  fetchNewsData() async {
+  ///
+  static  Future<List<news_feed.Data>>  fetchNewsData(String lang) async {
 
-    final response = await http.get(Uri.parse('https://ap-1.ixon.cc/api/v3/rdrss?sourcelist=AAJ_NEWS_PK.NEWS.TOPSTORIES.TEXT'));
 
 
-      if (response.statusCode == 200) {
+    final response = await http.get(Uri.parse(  lang == "ur"
+
+        ? '${ApiString.newsFeedUrl}' + '${ApiString.urduNews}'
+        : '${ApiString.englishNews}'));
+//    final response = await http.get(Uri.parse(ApiString.newsFeedUrl+'sourcelist=AAJ_NEWS_PK.NEWS.TOPSTORIES.TEXT'));
+
+    print(' news');
+    print(response);
+
+
+    if (response.statusCode == 200) {
         final decodedData = utf8.decode(response.bodyBytes);
         var data = json.decode(decodedData);
+        print(data);
         //var data = json.decode(response.body);
         List<dynamic> responseData = data['data'] as List<dynamic>;
         final List<news_feed.Data> newsList = responseData.map((data) => news_feed.Data.fromJson(data)).toList();

@@ -37,14 +37,15 @@ class _OtpVerificationState extends State<OtpVerification> {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     String lang = Get.locale!.languageCode;
-    print(390.w);
+
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: AppColor.red,
         elevation: 0,
         leading: lang == "ur"
-            ? KBackButtonUrdu(
+            ? KBackBtnUrdu(
           function: () {
             confirmDialoge(
                 context: context,
@@ -59,10 +60,10 @@ class _OtpVerificationState extends State<OtpVerification> {
                 cancelFunction: () {
                   Navigator.pop(context);
                 },
-                fontFamily: "j_n_n_k");
+                fontFamily: "Jameel Noori Nastaleeq");
           },
         )
-            : KBackButton(
+            : KBackBtn(
           function: () {
             confirmDialoge(
                 context: context,
@@ -78,17 +79,19 @@ class _OtpVerificationState extends State<OtpVerification> {
                 cancelFunction: () {
                   Navigator.pop(context);
                 },
-                fontFamily: "a_m");
+                fontFamily: "Poppins");
           },
         ),
       ),
       backgroundColor: AppColor.scaffoldBackgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-            child: SizedBox(
-              // width: 370.w,
+          child: Container(
+
+           height: 730,
+            color: isDarkMode?AppColor.black:AppColor.white,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
               child: Column(
                 // mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -96,61 +99,44 @@ class _OtpVerificationState extends State<OtpVerification> {
                     height: 130.h,
                   ),
                   Text(
-                    "TEZ",
+                    "tez".tr,
                     style: TextStyle(
                       // fontSize: lang == "ur" ? 40.sp : 30.sp,
-                      fontSize: 65.sp,
+
+                      fontSize: lang == "ur" ? 60.sp : 25.sp,
                       color: AppColor.red,
-                      fontFamily: lang == "ur" ? "j_n_n_k" : "a_m",
+                      fontFamily: lang == "ur" ? "Jameel Noori Nastaleeq" : "Poppins",
                     ),
                   ),
                   SizedBox(
                     height: 50.h,
                   ),
+
+
                   Text(
-                    "او ٹی پی کی تصدیق",
+                    "verify_otp".tr,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: lang == "ur" ? 35.sp : 25.sp,
-                      color: Colors.black,
-                      fontFamily: lang == "ur" ? "j_n_n_k" : "a_m",
+                      fontSize: lang == "ur" ? 45.sp : 25.sp,
+                      color:  isDarkMode?AppColor.white:AppColor.black,
+                      fontFamily: lang == "ur" ? "Jameel Noori Nastaleeq" : "Poppins",
                     ),
                   ),
-
-                  // Text(
-                  //   "verify_otp".tr,
-                  //   textAlign: TextAlign.center,
-                  //   style: TextStyle(
-                  //     fontSize: lang == "ur" ? 35.sp : 25.sp,
-                  //     color: Colors.black,
-                  //     fontFamily: lang == "ur" ? "j_n_n_k" : "a_m",
-                  //   ),
-                  // ),
                   SizedBox(
                     height: 10.h,
                   ),
+
                   Text(
                     lang == "ur"
-                        ? "${loginController.number}: ${"اس نمبر پر بھیجا گیااو  ٹی  پی درج کریں"}"
-                        : "${"اس نمبر پر بھیجا گیااو  ٹی  پی درج کریں".tr} ${loginController.number}",
+                        ? "${loginController.number}: ${"verify_otp1".tr}"
+                        : "${"verify_otp1".tr} ${loginController.number}",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: lang == "ur" ? 25.sp : 16.sp,
-                      color: Colors.black,
-                      fontFamily: lang == "ur" ? "j_n_n_k" : "a_m",
+                      fontSize: lang == "ur" ? 30.sp : 20.sp,
+                      color:  isDarkMode?AppColor.white:AppColor.black,
+                      fontFamily: lang == "ur" ? "Jameel Noori Nastaleeq" : "Poppins",
                     ),
                   ),
-                  // Text(
-                  //   lang == "ur"
-                  //       ? "${loginController.number}: ${"verify_otp1".tr}"
-                  //       : "${"verify_otp1".tr} ${loginController.number}",
-                  //   textAlign: TextAlign.center,
-                  //   style: TextStyle(
-                  //     fontSize: lang == "ur" ? 25.sp : 16.sp,
-                  //     color: Colors.black,
-                  //     fontFamily: lang == "ur" ? "j_n_n_k" : "a_m",
-                  //   ),
-                  // ),
                   SizedBox(
                     height: 20.h,
                   ),
@@ -158,8 +144,11 @@ class _OtpVerificationState extends State<OtpVerification> {
                     textDirection: TextDirection.ltr,
                     child: PinCodeTextField(
                       appContext: context,
-                      scrollPadding: EdgeInsets.all(10),
-
+                      scrollPadding: const EdgeInsets.all(10),
+                      textStyle: const TextStyle(
+                        color: Colors.red, // Set the desired color for the entered numbers
+                        fontWeight: FontWeight.bold,
+                      ),
                       // pastedTextStyle: const TextStyle(
                       //   color: AppColor.black,
                       //   fontWeight: FontWeight.bold,
@@ -169,6 +158,7 @@ class _OtpVerificationState extends State<OtpVerification> {
                       obscureText: false,
                       animationType: AnimationType.fade,
                       pinTheme: PinTheme(
+
                         shape: PinCodeFieldShape.box,
                         borderRadius: BorderRadius.circular(5),
                         fieldHeight: 50.w < 51 ? 50.w : 50,
@@ -237,7 +227,7 @@ class _OtpVerificationState extends State<OtpVerification> {
                                         context: context,
                                         color: AppColor.red,
                                         fontFamily:
-                                        lang == "ur" ? "j_n_n_k" : "a_m");
+                                        lang == "ur" ? "Jameel Noori Nastaleeq" : "Poppins");
                                     // await loginController.checkStatus();
                                     // dynamic result =
                                     //     await loginController.subscription();
@@ -277,7 +267,7 @@ class _OtpVerificationState extends State<OtpVerification> {
                                     //       context, RouteString.home);
                                     // }
                                   },
-                                  fontFamily: lang == "ur" ? "j_n_n_k" : "a_m");
+                                  fontFamily: lang == "ur" ? "Jameel Noori Nastaleeq" : "Poppins");
                             } else {
                               dynamic result = await loginController.verifyOtp(
                                   code: _pinCode!);
@@ -309,7 +299,7 @@ class _OtpVerificationState extends State<OtpVerification> {
                                           context: context,
                                           color: AppColor.red,
                                           fontFamily:
-                                          lang == "ur" ? "j_n_n_k" : "a_m");
+                                          lang == "ur" ? "Jameel Noori Nastaleeq" : "Poppins");
                                       await loginController.checkStatus();
                                       dynamic result =
                                       await loginController.subscription();
@@ -353,7 +343,7 @@ class _OtpVerificationState extends State<OtpVerification> {
                                       }
                                     },
                                     fontFamily:
-                                    lang == "ur" ? "j_n_n_k" : "a_m");
+                                    lang == "ur" ? "Jameel Noori Nastaleeq" : "Poppins");
                               }
                             }
                           }
@@ -377,18 +367,13 @@ class _OtpVerificationState extends State<OtpVerification> {
                               color: loginController.otpPin
                                   ? AppColor.red
                                   : AppColor.inactiveButtonColor),
-                          // child: ButtonText2(
-                          //   text: "submit".tr,
-                          //   fontSize: lang == "ur" ? 24.sp : 18.sp,
-                          //   color: AppColor.red,
-                          //   fontWeight: FontWeight.w400,
-                          // ),
                           child: ButtonText2(
-                            text: "تصدیق",
+                            text: "submit".tr,
                             fontSize: lang == "ur" ? 24.sp : 18.sp,
                             color: AppColor.red,
                             fontWeight: FontWeight.w400,
                           ),
+
                         ),
                       );
                     },
@@ -404,24 +389,24 @@ class _OtpVerificationState extends State<OtpVerification> {
                         return Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            // Text(
-                            //   "${"resend_otp".tr}: ",
-                            //   textAlign: TextAlign.center,
-                            //   style: TextStyle(
-                            //     fontSize: 16.sp,
-                            //     color: AppColor.red,
-                            //     fontFamily: lang == "ur" ? "j_n_n_k" : "a_m",
-                            //   ),
-                            // ),
                             Text(
-                              "${"دوبارہ بھیجیں"}: ",
+                              "${"resend_otp".tr}:",
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 16.sp,
                                 color: AppColor.red,
-                                fontFamily: lang == "ur" ? "j_n_n_k" : "a_m",
+                                fontFamily: lang == "ur" ? "Jameel Noori Nastaleeq" : "Poppins",
                               ),
                             ),
+                            // Text(
+                            //   "${"دوبارہ بھیجیں"}: ",
+                            //   textAlign: TextAlign.center,
+                            //   style: TextStyle(
+                            //     fontSize: 16.sp,
+                            //     color: AppColor.red,
+                            //     fontFamily: lang == "ur" ? "Jameel Noori Nastaleeq" : "Poppins",
+                            //   ),
+                            // ),
                             Text(
                               "${loginController.timeLeft}",
                               textDirection: TextDirection.ltr,
@@ -429,7 +414,7 @@ class _OtpVerificationState extends State<OtpVerification> {
                               style: TextStyle(
                                 fontSize: lang == "ur" ? 22.sp : 16.sp,
                                 color: AppColor.red,
-                                fontFamily: lang == "ur" ? "j_n_n_k" : "a_m",
+                                fontFamily: lang == "ur" ? "Jameel Noori Nastaleeq" : "Poppins",
                               ),
                             ),
                           ],
@@ -461,6 +446,7 @@ class _OtpVerificationState extends State<OtpVerification> {
                                 color: AppColor.red),
                             child: ButtonText2(
                               text: "resend".tr,
+                              fontFamily: lang == "ur" ? "Jameel Noori Nastaleeq" : "Poppins",
                               fontSize: lang == "ur" ? 24.sp : 18.sp,
                               fontWeight: FontWeight.w400,
                             ),

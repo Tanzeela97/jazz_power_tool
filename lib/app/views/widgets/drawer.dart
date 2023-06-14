@@ -7,8 +7,8 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 
-import '../../controller/drawer/drawer.dart';
 import '../../controller/home_screen/home_screen_controller.dart';
+import '../../controller/language/language.dart';
 import '../../data/constant/app_color.dart';
 import '../../data/constant/image_string.dart';
 

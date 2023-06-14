@@ -4,8 +4,9 @@ import 'package:get/get.dart';
 
 import 'package:jazzpowertoolsapp/app/views/widgets/widget_loader.dart';
 
-import '../../../../controller/drawer/drawer.dart';
+
 import '../../../../controller/home_screen/home_screen_controller.dart';
+import '../../../../controller/language/language.dart';
 import '../../../../data/constant/app_color.dart';
 import '../../../widgets/button_text2.dart';
 import '../../../widgets/dialogue_widget.dart';
@@ -37,11 +38,11 @@ class _MoreScreenState extends State<MoreScreen> {
                 Text(
                   "language".tr,
                   style: TextStyle(
-                      fontSize: lang == "ur" ? 35.sp : 25.sp,
+                      fontSize: lang == "ur-PK" ? 35.sp : 25.sp,
                       wordSpacing: 2,
                       fontWeight: FontWeight.bold,
                       color: AppColor.red,
-                      fontFamily: lang == "ur" ? "j_n_n_k" : "Poppins"),
+                      fontFamily: lang == "ur-PK" ? "Jameel Noori Nastaleeq" : "Poppins"),
                 ),
                 SizedBox(
                   height: 22.h,
@@ -71,11 +72,11 @@ class _MoreScreenState extends State<MoreScreen> {
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                                fontSize: lang == "ur" ? 30.sp : 20.sp,
+                                fontSize: lang == "ur-PK" ? 30.sp : 20.sp,
                                 fontWeight: FontWeight.normal,
                                 color: AppColor.red,
                                 fontFamily:
-                                lang == "ur" ? "j_n_n_k" : "Poppins"),
+                                lang == "ur-PK" ? "Jameel Noori Nastaleeq" : "Poppins"),
                             textAlign: TextAlign.center,
                           ),
                           Icon(
@@ -108,10 +109,10 @@ class _MoreScreenState extends State<MoreScreen> {
                       child: ButtonText2(
                         text: homeScreenController.subscription
                             ? "unsubscribe".tr
-                            : "subscribe.tr",
-                        fontSize: lang == "ur" ? 24.sp : 18.sp,
+                            : "subscribe".tr,
+                        fontSize: lang == "ur-PK" ? 24.sp : 18.sp,
                         fontWeight: FontWeight.bold,
-                        fontFamily: lang == "ur" ? "j_n_n_k" : "Poppins",
+                        fontFamily: lang == "ur-PK" ? "Jameel Noori Nastaleeq" : "Poppins",
                       ),
                     ),
                   );

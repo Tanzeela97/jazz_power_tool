@@ -6,6 +6,7 @@ class WidgetLoading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return const Center(
 
       child: CircularProgressIndicator(color: AppColor.red),

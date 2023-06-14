@@ -3,25 +3,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-
-import '../../controller/drawer/drawer.dart';
+import '../../controller/language/language.dart';
 import '../../data/constant/app_color.dart';
 import '../../data/constant/image_string.dart';
 
 Future<dynamic> confirmDialoge(
     {required BuildContext context,
-      required String title,
-      required String msg,
-      required String funButtonTitle,
-      required String cancelButtonTitle,
-      required Function function,
-      required Function cancelFunction,
-      required String fontFamily}) {
+    required String title,
+    required String msg,
+    required String funButtonTitle,
+    required String cancelButtonTitle,
+    required Function function,
+    required Function cancelFunction,
+    required String fontFamily}) {
   return showDialog(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        return SizedBox(
+        final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
+        return Container(
+          color: isDarkMode ? AppColor.black : AppColor.white,
           // width: 332.w,
           // height: 108.h,
           child: AlertDialog(
@@ -32,9 +34,10 @@ Future<dynamic> confirmDialoge(
               ),
             ),
             title: Text(
-              "",
+              title,
               style: TextStyle(
-                fontSize: fontFamily == "j_n_n_k" ? 28.sp : 20.sp,
+                fontSize:
+                    fontFamily == "Jameel Noori Nastaleeq" ? 28.sp : 20.sp,
                 color: AppColor.red,
                 fontFamily: fontFamily,
               ),
@@ -48,60 +51,76 @@ Future<dynamic> confirmDialoge(
             //   ),
             // ),
             content: Container(
+              color: isDarkMode ? AppColor.black : AppColor.white,
+
               padding: EdgeInsets.all(10.w),
               // alignment: Alignment.center,
-            //   child: Text(
-            //     msg,
-            //     style: TextStyle(
-            //       fontSize: fontFamily == "j_n_n_k" ? 25.sp : 18.sp,
-            //       fontFamily: fontFamily,
-            //     ),
-            //     textAlign: TextAlign.center,
-            //   ),
-            // ),
-            child: Text(
-              "کیا تم باہر جانا چاہتے ہو",
-              style: TextStyle(
-                fontSize: fontFamily == "j_n_n_k" ? 25.sp : 18.sp,
-                fontFamily: fontFamily,
+              //   child: Text(
+              //     msg,
+              //     style: TextStyle(
+              //       fontSize: fontFamily == "j_n_n_k" ? 25.sp : 18.sp,
+              //       fontFamily: fontFamily,
+              //     ),
+              //     textAlign: TextAlign.center,
+              //   ),
+              // ),
+              child: Text(
+                msg,
+                style: TextStyle(
+                  fontSize:
+                      fontFamily == "Jameel Noori Nastaleeq" ? 25.sp : 18.sp,
+                  fontFamily: fontFamily,
+                ),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
             ),
-          ),
             actionsAlignment: MainAxisAlignment.spaceAround,
             actions: [
-              SizedBox(
+              Container(
+                color: isDarkMode ? AppColor.black : AppColor.white,
                 width: 70,
                 height: 70,
                 child: TextButton(
                   onPressed: () {
-                    cancelFunction();
-                  }, child: Text(" ہاں",style: TextStyle(fontSize: 20,color: AppColor.red),),
+                    function();
+                  },
+                  child: Text(
+                    "yes".tr,
+                    style: TextStyle(fontSize: 20, color: AppColor.red),
+                  ),
                   // icon: Image(
                   //   image: ImageString.jazzLogo,
                   //   fit: BoxFit.fill,
                   // ),
                 ),
               ),
-              SizedBox(
+              Container(
+                color: isDarkMode ? AppColor.black : AppColor.white,
+
                 height: 70,
                 width: 70,
                 // child: IconButton(
                 //   onPressed: () {
                 //     function();
-                //     // Navigator.pop(context);
+                //      Navigator.pop(context);
                 //   },
                 //   icon: Image(
                 //     image: ImageString.jazzLogo,
                 //     fit: BoxFit.fill,
                 //   ),
                 // ),
-               child: TextButton(
+                child: TextButton(
                   onPressed: () {
                     cancelFunction();
-                  }, child: Text("نہیں",style: TextStyle(fontSize: 20,color: AppColor.red),),
-              ),),
+                  },
+                  child: Text(
+                    "no".tr,
+                    style: TextStyle(fontSize: 20, color: AppColor.red),
+                  ),
+                ),
+              ),
             ],
+            backgroundColor: isDarkMode ? AppColor.black : AppColor.white,
           ),
         );
       });
@@ -133,7 +152,7 @@ Future<dynamic> languageSelectDialogue(
                       if (login) {
                         await WriteCache.setString(key: "lang", value: "ur");
                       } else {
-                        await WriteCache.setString(key: "lang", value: "ur");
+                        await WriteCache.setString(key: "lang", value: "en");
                       }
                       var locale = const Locale("ur", "PK");
                       Get.updateLocale(locale);

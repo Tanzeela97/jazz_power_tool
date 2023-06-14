@@ -8,16 +8,13 @@ class NamazTimeDay {
   String maghrib;
   String isha;
   String midnight;
-  // String lat;
-  // String long;
-  // String calcMethod;
+
   String asrMethod;
   String timeFormat;
   String dateStr;
 
   String hijriStr;
 
-  // int hijriOffset;
 
   NamazTimeDay({
     required this.imsak,
@@ -37,8 +34,7 @@ class NamazTimeDay {
     required this.dateStr,
     // required this.date,
     required this.hijriStr,
-    // required this.hijriDate,
-    // required this.hijriOffset,
+
   });
 
   factory NamazTimeDay.fromJson(Map<String, dynamic> json) {
@@ -52,9 +48,7 @@ class NamazTimeDay {
       maghrib: json['maghrib'],
       isha: json['isha'],
       midnight: json['midnight'],
-      // lat: json['lat'],
-      // long: json['long'],
-      // calcMethod: json['calc_method'],
+
       asrMethod: json['asr_method'],
       timeFormat: json['time_format'],
       dateStr: json['date_str'],

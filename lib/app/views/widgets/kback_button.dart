@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../data/constant/image_string.dart';
 
-class KBackButton extends StatelessWidget {
-  const KBackButton({
+class KBackBtn extends StatelessWidget {
+  const KBackBtn({
 
     this.function,
   });
@@ -20,11 +20,7 @@ class KBackButton extends StatelessWidget {
         }
         function();
       },
-      icon: Image(
-        image: ImageString.leftArrow,
-        height: 50.h,
-        width: 50.w,
-      ),
+      icon: const Icon(Icons.arrow_forward,size: 20,),
     );
   }
 }

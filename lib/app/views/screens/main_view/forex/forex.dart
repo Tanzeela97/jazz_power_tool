@@ -10,6 +10,8 @@ import '../../../../data/constant/app_color.dart';
 import '../../../../model/forex.dart';
 import '../../../../services/remote_services.dart';
 import '../../../../model/forex.dart' as for_ex;
+import '../../../widgets/kback_button.dart';
+import '../../../widgets/kback_button_ur.dart';
 
 class ForExchange extends StatefulWidget {
   const ForExchange({Key? key}) : super(key: key);
@@ -32,182 +34,177 @@ class _ForExchangeState extends State<ForExchange> {
 
   @override
   Widget build(BuildContext context) {
+    String lang = Get.locale!.toLanguageTag();
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       body: GetBuilder<ForexScreenController>(
-        builder: (_) => Column(
-          children: [
-            Stack(
-              alignment: Alignment.centerLeft,
-              children: [
-                Container(
-                  height: 150.h,
-                  width: 390.w,
-                  alignment: Alignment.center,
-                  child: Text(
-                    'Forex',
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontFamily: 'Jameel Noori Nastaleeq',
-                      fontSize: 28.sp,
-                      fontWeight: FontWeight.w600,
-                      color: AppColor.fontColorButton,
+        builder: (_) => Container(
+     color: isDarkMode ? AppColor.black : AppColor.white,
+          child: Column(
+            children: [
+              Stack(
+                alignment: Alignment.centerLeft,
+                children: [
+                  Container(
+                    height: 150.h,
+                    width: 390.w,
+                    alignment: Alignment.center,
+                    child: Text(
+                      'forex'.tr,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontFamily: 'Jameel Noori Nastaleeq',
+                        fontSize: 28.sp,
+                        fontWeight: FontWeight.w600,
+                        color: AppColor.fontColorButton,
+                      ),
+                    ),
+                    decoration: const BoxDecoration(
+                      color: AppColor.red,
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(15),
+                        bottomRight: Radius.circular(15),
+                      ),
                     ),
                   ),
-                  decoration: const BoxDecoration(
-                    color: AppColor.red,
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(15),
-                      bottomRight: Radius.circular(15),
-                    ),
+
+                  SizedBox(
+                    height: 30.h,
                   ),
-                ),
+                  lang == "ur"
+                      ?  KBackBtnUrdu()
+                      :  KBackBtn(),
 
-                SizedBox(
-                  height: 30.h,
-                ),
-                Directionality(
-                  textDirection: TextDirection.ltr,
-                  child: IconButton(
+                ],
+              ),
+              SizedBox(
+                height: 30.h,
+              ),
+              Directionality(
+                textDirection: TextDirection.ltr,
+                child: Container(
+                  color: isDarkMode ? AppColor.black : AppColor.white,
+                  height: 400.h,
+                  child: Align(
+                    alignment: Alignment.center,
+                    child:ListView.builder(
+                      itemCount: forexController.forex.length + 1,
+                      itemBuilder: (context, index) {
+                        if (index == 0) {
+                          // Display name once at the top
+                          return Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Row(
 
-                    icon: const Icon(
-
-                      Icons.arrow_back,
-                     size: 20,
-                       color: Colors.white,
-                    ),
-                    onPressed: () => Navigator.popAndPushNamed(context, RouteString.home),
-
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 30.h,
-            ),
-            Directionality(
-              textDirection: TextDirection.ltr,
-              child: Container(
-                color: AppColor.white,
-                height: 400.h,
-                child: Align(
-                  alignment: Alignment.center,
-                  child:ListView.builder(
-                    itemCount: forexController.forex.length + 1,
-                    itemBuilder: (context, index) {
-                      if (index == 0) {
-                        // Display name once at the top
-                        return Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Row(
-
-                            children: [
-                               SizedBox(width: 20.0.w),
-                              const Text(
-                                'Name',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Poppins',
-                                ),
-                              ),
-                               SizedBox(width: 60.0.w),
-                              const Text(
-                                'Buying',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Poppins',
-                                ),
-                              ),
-                               SizedBox(width: 60.0.w),
-                              const Text(
-                                'Selling',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Poppins',
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
-                      } else {
-                        final forexItem = forexController.forex[index - 1];
-                        return ListTile(
-                          contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
-                          title: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const SizedBox(height: 10),
-                              const SizedBox(width: 20.0),
-                              Expanded(
-                                child: Text(
-                                  forexItem.name??"",
-                                  style: const TextStyle(
-                                    color: Colors.black,
+                              children: [
+                                 SizedBox(width: 20.0.w),
+                                 Text(
+                                  'Name',
+                                  style: TextStyle(
+                                    color: isDarkMode ? AppColor.white : AppColor.black,
                                     fontSize: 18,
+                                    fontWeight: FontWeight.bold,
                                     fontFamily: 'Poppins',
                                   ),
                                 ),
-                              ),
-                              const SizedBox(width: 10.0),
-                              Expanded(
-                                child: Text(
-                                  forexItem.buying??"",
-                                  style: const TextStyle(
-                                    color: Colors.black,
+                                 SizedBox(width: 60.0.w),
+                                 Text(
+                                  'Buying',
+                                  style: TextStyle(
+                                    color: isDarkMode ? AppColor.white : AppColor.black,
                                     fontSize: 18,
+                                    fontWeight: FontWeight.bold,
                                     fontFamily: 'Poppins',
                                   ),
                                 ),
-                              ),
-                              const SizedBox(width: 20.0),
-                              Expanded(
-                                child: Text(
-                                  forexItem.selling??"",
-                                  style: const TextStyle(
-                                    color: Colors.black,
+                                 SizedBox(width: 60.0.w),
+                                 Text(
+                                  'Selling',
+                                  style: TextStyle(
+                                    color: isDarkMode ? AppColor.white : AppColor.black,
                                     fontSize: 18,
+                                    fontWeight: FontWeight.bold,
                                     fontFamily: 'Poppins',
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          onTap: () {
-                            // Handle item tap
-                          },
-                          // subtitle: Padding(
-                          //   padding: const EdgeInsets.only(top: 20.0),
-                          //   child: Row(
-                          //     mainAxisAlignment: MainAxisAlignment.end,
-                          //     children: [
-                          //       const SizedBox(width: 10.0),
-                          //       Text(
-                          //         forexController.forex.first.pubdate!,
-                          //         style: const TextStyle(fontSize: 18),
-                          //         overflow: TextOverflow.ellipsis,
-                          //         maxLines: 1,
-                          //       ),
-                          //       const SizedBox(width: 8.0),
-                          //     ],
-                          //   ),
-                          // ),
-                        );
-                      }
-                    },
-                  )
-                      // Fallback widget while loading
+                              ],
+                            ),
+                          );
+                        } else {
+                          final forexItem = forexController.forex[index - 1];
+                          return ListTile(
+                            contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
+                            title: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const SizedBox(height: 10),
+                                const SizedBox(width: 20.0),
+                                Expanded(
+                                  child: Text(
+                                    forexItem.name??"",
+                                    style:  TextStyle(
+                                      color: isDarkMode ? AppColor.white : AppColor.black,
+                                      fontSize: 18,
+                                      fontFamily: 'Poppins',
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 10.0),
+                                Expanded(
+                                  child: Text(
+                                    forexItem.buying??"",
+                                    style:  TextStyle(
+                                      color: isDarkMode ? AppColor.white : AppColor.black,
+                                      fontSize: 18,
+                                      fontFamily: 'Poppins',
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 20.0),
+                                Expanded(
+                                  child: Text(
+                                    forexItem.selling??"",
+                                    style:  TextStyle(
+                                      color: isDarkMode ? AppColor.white : AppColor.black,
+                                      fontSize: 18,
+                                      fontFamily: 'Poppins',
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            onTap: () {
+                              // Handle item tap
+                            },
+                            // subtitle: Padding(
+                            //   padding: const EdgeInsets.only(top: 20.0),
+                            //   child: Row(
+                            //     mainAxisAlignment: MainAxisAlignment.end,
+                            //     children: [
+                            //       const SizedBox(width: 10.0),
+                            //       Text(
+                            //         forexController.forex.first.pubdate!,
+                            //         style: const TextStyle(fontSize: 18),
+                            //         overflow: TextOverflow.ellipsis,
+                            //         maxLines: 1,
+                            //       ),
+                            //       const SizedBox(width: 8.0),
+                            //     ],
+                            //   ),
+                            // ),
+                          );
+                        }
+                      },
+                    )
+                        // Fallback widget while loading
+                  ),
                 ),
               ),
-            ),
 
 
-          ],
+            ],
+          ),
         ),
       ),
     );

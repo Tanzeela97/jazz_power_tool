@@ -11,7 +11,8 @@ class ImageString {
       AssetImage('assets/images/profile.png');
   static const ImageProvider jazzLogo =
       AssetImage('assets/images/jazz_logo.png');
-  static const ImageProvider proPic = AssetImage('assets/images/pro_pic.png');
+  static const ImageProvider proPicMale = AssetImage('assets/images/male_av.png');
+  static const ImageProvider proPicFemale = AssetImage('assets/images/female_av.png');
 
   ///
   static const ImageProvider mosque = AssetImage('assets/images/mosque.jpg');
@@ -39,7 +40,7 @@ class ImageString {
   static const ImageProvider heart = AssetImage('assets/images/heart.png');
   static const ImageProvider speaker = AssetImage('assets/images/speaker.png');
 
-  //static const ImageProvider proPic = AssetImage('assets/images/pro_pic.png');
+  //static const ImageProvider proPic = AssetImage('assets/images/male_pro.png');
   static const ImageProvider feedback =
       AssetImage('assets/images/feedback.png');
   static const ImageProvider bismillah =
@@ -71,8 +72,12 @@ class ImageString {
   static const ImageProvider splashScreen2 = AssetImage('assets/images/splash_screen2.png');
   static const ImageProvider splashScreen3 = AssetImage('assets/images/splash_screen3.png');
   static const ImageProvider paksistan = AssetImage('assets/assets/pakistan.png');
+  static const ImageProvider splash = AssetImage('assets/images/splash.png');
 
   static const ImageProvider backgroundSplash3 = AssetImage('assets/images/background_splash.png');
+  static const ImageProvider welcomeScreen = AssetImage('assets/images/welcome_screen.png');
+  static const ImageProvider start = AssetImage('assets/images/start.png');
+
   static const ImageProvider shuruBtn = AssetImage('assets/images/shuru_btn.png');
   static const ImageProvider ayatBackground = AssetImage('assets/images/ayat_background.png');
   static const ImageProvider fajar = AssetImage('assets/assets/fajar.png');
@@ -83,7 +88,6 @@ class ImageString {
 
   static const ImageProvider bellIcon = AssetImage('assets/assets/bell.png');
   static const ImageProvider locationIcon = AssetImage('assets/assets/location.png');
-
 
 
 }

@@ -1,29 +1,41 @@
+import 'package:cache_manager/core/read_cache_service.dart';
 import 'package:flutter/material.dart';
+//import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:jazzpowertoolsapp/app/routes/route_generator.dart';
 import 'package:jazzpowertoolsapp/app/views/translation/translation.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'controller/drawer/drawer.dart';
+
 import 'controller/home_screen/home_screen_controller.dart';
+import 'controller/language/language.dart';
+import 'controller/theme/theme.dart';
+import 'data/constant/app_theme.dart';
 import 'data/constant/route_string.dart';
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  final bool login;
+  final String route;
+
+  const MyApp({Key? key, required this.login, required this.route}) : super(key: key);
 
   @override
   MyAppState createState() => MyAppState();
 }
 
 class MyAppState extends State<MyApp> {
+
   String lang = "ur";
   final moreScreenController = Get.put(MoreScreenController());
   final homeScreenController = Get.put(HomeScreenController( const bool.fromEnvironment('dart.library.js_util')));
  // final loginController = Get.put(LoginController());
+  final ThemeController themeController = Get.put(ThemeController());
 
   @override
   void initState() {
+
     // scheduleMicrotask(() {
     //   precacheImage(ImageString.ajKiBaat, context);
     //   precacheImage(ImageString.appBarLogo, context);
@@ -42,8 +54,33 @@ class MyAppState extends State<MyApp> {
     //   precacheImage(ImageString.forwordButton, context);
     //   precacheImage(ImageString.backwordButton, context);
     // });
+    setConfiguration();
     super.initState();
   }
+  setConfiguration() async {
+    lang = await ReadCache.getString(key: "lang") ?? "ur";
+
+    homeScreenController.login = widget.login;
+    if (widget.login) {
+      homeScreenController.checkGender();
+    }
+    // print(lang);
+    var locale = const Locale("ur", "PK");
+    if (lang == "ur") {
+      locale = const Locale("ur", "PK");
+      moreScreenController.setLanguage("اردو");
+    } else {
+      locale = const Locale("en", "US");
+      moreScreenController.setLanguage("English");
+    }
+
+    Get.updateLocale(locale);
+    // print("$login $route");
+    // setState(() {});
+   // FlutterNativeSplash.remove();
+  }
+
+
 
   //language
   // final localeBloc = sl<LocaleBloc>();
@@ -85,20 +122,39 @@ class MyAppState extends State<MyApp> {
         builder: (context, child) => GetMaterialApp(
           debugShowCheckedModeBanner: false,
           translations: Localization(),
-          themeMode: ThemeMode.light,
-          locale: const Locale("ur", "PK"),
-          initialRoute: RouteString.onboardingThree,
+         // locale: Get.deviceLocale, // or specify a specific locale
+
+          //fallbackLocale: const Locale('en', 'US'),
+          theme: AppTheme.lightTheme(),
+          darkTheme: AppTheme.darkTheme(),
+        //  themeMode: themeController.isDarkMode.value ? ThemeMode.dark : ThemeMode.light,
+         themeMode: ThemeMode.light,
+
+         /// initialRoute: widget.route,
+
+          localizationsDelegates: const [
+            GlobalCupertinoLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
+          locale: Locale(lang, "PK"),
+          supportedLocales: const [Locale("ur", "PK"), Locale("en", "US")],
+
+         initialRoute: RouteString.onboardingTwo,
+          initialBinding: BindingsBuilder(() {
+            Get.put(ThemeController()); // Register the ThemeController
+          }),
           onGenerateRoute: RouteGenerator.generateRoute,
           navigatorObservers: [RouteObservers.routeObserver],
-          theme: ThemeData(
-            brightness: Brightness.light,
-            textButtonTheme: TextButtonThemeData(
-              style: ButtonStyle(
-                overlayColor:
-                MaterialStateProperty.all<Color>(Colors.transparent),
-              ),
-            ),
-          ),
+          // theme: ThemeData(
+          //   brightness: Brightness.light,
+          //   textButtonTheme: TextButtonThemeData(
+          //     style: ButtonStyle(
+          //       overlayColor:
+          //       MaterialStateProperty.all<Color>(Colors.transparent),
+          //     ),
+          //   ),
+          // ),
         ),
       );
 

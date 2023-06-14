@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:jazzpowertoolsapp/app/views/screens/main_view/news/news_description.dart';
+import 'package:jazzpowertoolsapp/app/views/screens/main_view/profile/profile_detail.dart';
+import 'package:jazzpowertoolsapp/app/views/screens/main_view/profile/profile_screen.dart';
 
 import '../data/constant/route_string.dart';
 import '../views/screens/main_view/forex/forex.dart';
+import '../views/screens/main_view/location/city_list.dart';
 import '../views/screens/main_view/login/login.dart';
 import '../views/screens/main_view/login/otp_verification.dart';
 import '../views/screens/main_view/main_view.dart';
@@ -18,8 +22,8 @@ class RouteGenerator {
 
 
     switch (settings.name) {
-      case RouteString.onboardingOne:
-        return MaterialPageRoute(builder: (_) => OnboardingScreenOne());
+      // case RouteString.onboardingOne:
+      //   return MaterialPageRoute(builder: (_) => OnboardingScreenOne());
       case RouteString.onboardingTwo:
         return MaterialPageRoute(builder: (_) => const OnboardingScreenTwo());
       case RouteString.onboardingThree:
@@ -29,9 +33,9 @@ class RouteGenerator {
       case RouteString.home:
         return MaterialPageRoute(builder: (_) => const MainView());
       case RouteString.otpVerification:
-        return MaterialPageRoute(builder: (_) =>  OtpVerification());
+        return MaterialPageRoute(builder: (_) =>  const OtpVerification());
       case RouteString.login:
-        return MaterialPageRoute(builder: (_) =>  Login());
+        return MaterialPageRoute(builder: (_) =>  const Login());
 
       case RouteString.quiz:
         return MaterialPageRoute(builder: (_) => QuizPage());
@@ -42,7 +46,13 @@ class RouteGenerator {
       case RouteString.quranScreen:
         return MaterialPageRoute(builder: (_) => const QuranScreen());
       case RouteString.forexScreen:
-        return MaterialPageRoute(builder: (_) =>  ForExchange());
+        return MaterialPageRoute(builder: (_) =>  const ForExchange());
+      case RouteString.newsDescription:
+        return MaterialPageRoute(builder: (_) =>  NewsDescriptiom());
+      case RouteString.profileDetail:
+        return MaterialPageRoute(builder: (_) =>  const ProfileDetails());
+      case RouteString.cityListScreen:
+        return MaterialPageRoute(builder: (_) =>   const CityListScreen());
 
       default:
         return _errorRoute();

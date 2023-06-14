@@ -28,8 +28,8 @@ class ButtonText2 extends StatelessWidget {
       text,
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
-      textAlign: TextAlign.center,
-      textDirection: TextDirection.ltr,
+
+    //  textDirection: TextDirection.ltr,
       style: TextStyle(
         fontFamily: fontFamily,
         fontSize: fontSize,
