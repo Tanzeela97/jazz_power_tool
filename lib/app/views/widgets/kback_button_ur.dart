@@ -5,7 +5,6 @@ import '../../data/constant/image_string.dart';
 
 class KBackBtnUrdu extends StatelessWidget {
   const KBackBtnUrdu({
-
     this.function,
   });
   final function;
@@ -19,7 +18,10 @@ class KBackBtnUrdu extends StatelessWidget {
         }
         function();
       },
-      icon: const Icon(Icons.arrow_forward,size: 20,),
+      icon: const Icon(
+        Icons.arrow_back,
+        size: 20,
+      ),
     );
   }
 }

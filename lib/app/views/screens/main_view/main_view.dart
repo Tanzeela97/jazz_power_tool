@@ -64,8 +64,7 @@ class _MainViewState extends State<MainView> {
     String lang = Get.locale!.toLanguageTag();
     return Scaffold(
       key: key,
-      endDrawer: lang == "ur-PK" ? null : CustomDrawer(),
-      drawer: lang == "ur-PK" ? CustomDrawer() : null,
+      drawer: CustomDrawer(),
       body: WillPopScope(
         onWillPop: onWillPop,
         child: GetBuilder<MainViewController>(builder: (_) {
@@ -126,6 +125,7 @@ class _MainViewState extends State<MainView> {
               onTap: (value) {
                 if (value == 0) {
                   key.currentState!.openDrawer();
+                  return;
                 }
                 controller.changePage(value);
               },
@@ -195,18 +195,33 @@ class CustomDrawer extends StatelessWidget {
                   constraints: const BoxConstraints(
                     maxWidth: 300,
                   ),
-                  width: 120.w,
+                  // color: Colors.amber,
+                  width: homeScreenController.login ? 250.w : 120.w,
                   child: Text(
-                    homeScreenController.name,
+                    homeScreenController.login
+                        ? homeScreenController.name == "Hello"
+                            ? "hello".tr
+                            : homeScreenController.name
+                        : "hello".tr,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
+                    textDirection: TextDirection.ltr,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontFamily: /*lang == "ur" ? 'j_n_n_k' : */ "Poppins",
-                      fontSize: /*lang == "ur" ? 40.sp : */
-                          20.sp,
-                      color: AppColor.black,
+                      fontFamily: homeScreenController.login
+                          ? homeScreenController.name == "Hello" &&
+                                  lang == "ur-PK"
+                              ? "Jameel Noori Nastaleeq"
+                              : "Poppins"
+                          : "Jameel Noori Nastaleeq",
+                      fontSize: homeScreenController.login
+                          ? homeScreenController.name == "Hello" &&
+                                  lang == "ur-PK"
+                              ? 30.sp
+                              : 20.sp
+                          : 30.sp,
                       fontWeight: FontWeight.bold,
+                      color: AppColor.white,
                     ),
                   ),
                 ),
@@ -225,7 +240,7 @@ class CustomDrawer extends StatelessWidget {
                       fontFamily: /*lang == "ur" ? 'j_n_n_k' : */ "Poppins",
                       fontSize: /*lang == "ur" ? 40.sp : */
                           20.sp,
-                      color: AppColor.black,
+                      color: AppColor.white,
                       fontWeight: FontWeight.bold,
                     ),
                   )
@@ -366,8 +381,10 @@ class CustomDrawer extends StatelessWidget {
                           }
 
                           Navigator.pop(context);
-                          homeScreenController.changeLanguage(lang);
+
                           Get.updateLocale(locale);
+                          homeScreenController
+                              .changeLanguage(Get.locale!.languageCode);
                         },
                         buttonStyleData: ButtonStyleData(
                           // height: 50,
@@ -429,6 +446,11 @@ class CustomDrawer extends StatelessWidget {
                   'theme'.tr,
                   textDirection:
                       lang == "ur" ? TextDirection.rtl : TextDirection.ltr,
+                  style: TextStyle(
+                      fontSize: lang == "ur" ? 20.sp : 14.sp,
+                      fontWeight: FontWeight.bold,
+                      color: AppColor.red,
+                      fontFamily: lang == "ur" ? "j_n_n_k" : "Poppins"),
                 ),
                 trailing: Switch(
 //                   value: themeController.appTheme.value == AppTheme.darkTheme,

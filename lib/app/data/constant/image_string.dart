@@ -11,8 +11,10 @@ class ImageString {
       AssetImage('assets/images/profile.png');
   static const ImageProvider jazzLogo =
       AssetImage('assets/images/jazz_logo.png');
-  static const ImageProvider proPicMale = AssetImage('assets/images/male_av.png');
-  static const ImageProvider proPicFemale = AssetImage('assets/images/female_av.png');
+  static const ImageProvider proPicMale =
+      AssetImage('assets/images/male_av.png');
+  static const ImageProvider proPicFemale =
+      AssetImage('assets/images/female_av.png');
 
   ///
   static const ImageProvider mosque = AssetImage('assets/images/mosque.jpg');
@@ -46,40 +48,63 @@ class ImageString {
   static const ImageProvider bismillah =
       AssetImage('assets/images/bismillah.png');
 
+  static const ImageProvider sun = AssetImage('assets/assets/sun.png');
+  static const ImageProvider forexButton =
+      AssetImage('assets/assets/forex_button.png');
+  static const ImageProvider money = AssetImage('assets/assets/money.png');
   static const ImageProvider swirl = AssetImage('assets/assets/swirl.png');
   static const ImageProvider home = AssetImage('assets/assets/home.png');
-  static const ImageProvider emotions = AssetImage('assets/assets/emotions.png');
+  static const ImageProvider emotions =
+      AssetImage('assets/assets/emotions.png');
   static const ImageProvider game = AssetImage('assets/assets/game.png');
-  static const ImageProvider favourite = AssetImage('assets/assets/favourite.png');
+  static const ImageProvider favourite =
+      AssetImage('assets/assets/favourite.png');
 
   static const ImageProvider menu = AssetImage('assets/assets/menu.png');
   static const ImageProvider balance = AssetImage('assets/assets/balance.png');
   static const ImageProvider forex = AssetImage('assets/assets/forex.png');
   static const ImageProvider weather = AssetImage('assets/assets/weather.png');
   static const ImageProvider imageNews = AssetImage('assets/assets/news.png');
+  static const ImageProvider background =
+      AssetImage('assets/assets/background.png');
 
-  static const ImageProvider backgroundImage = AssetImage('assets/images/background.png');
-  static const ImageProvider entertainmentCard = AssetImage('assets/images/card2.png');
-  static const ImageProvider islamicCard = AssetImage('assets/images/card1.png');
+  static const ImageProvider backgroundImage =
+      AssetImage('assets/images/background.png');
+  static const ImageProvider entertainmentCard =
+      AssetImage('assets/images/card2.png');
+  static const ImageProvider islamicCard =
+      AssetImage('assets/images/card1.png');
   static const ImageProvider news = AssetImage('assets/assets/news.png');
 
-  static const ImageProvider jokeEnglish = AssetImage('assets/images/joke_english.png');
-  static const ImageProvider jokeUrdu = AssetImage('assets/images/joke_urdu.png');
+  static const ImageProvider jokeEnglish =
+      AssetImage('assets/images/joke_english.png');
+  static const ImageProvider jokeUrdu =
+      AssetImage('assets/images/joke_urdu.png');
 
-  static const ImageProvider rightArrow = AssetImage('assets/assets/right_arrow.png');
-  static const ImageProvider leftArrow = AssetImage('assets/assets/left_arrow.png');
-  static const ImageProvider splashScreen1 = AssetImage('assets/images/splash_screen1.png');
-  static const ImageProvider splashScreen2 = AssetImage('assets/images/splash_screen2.png');
-  static const ImageProvider splashScreen3 = AssetImage('assets/images/splash_screen3.png');
-  static const ImageProvider paksistan = AssetImage('assets/assets/pakistan.png');
+  static const ImageProvider rightArrow =
+      AssetImage('assets/assets/right_arrow.png');
+  static const ImageProvider leftArrow =
+      AssetImage('assets/assets/left_arrow.png');
+  static const ImageProvider splashScreen1 =
+      AssetImage('assets/images/splash_screen1.png');
+  static const ImageProvider splashScreen2 =
+      AssetImage('assets/images/splash_screen2.png');
+  static const ImageProvider splashScreen3 =
+      AssetImage('assets/images/splash_screen3.png');
+  static const ImageProvider paksistan =
+      AssetImage('assets/assets/pakistan.png');
   static const ImageProvider splash = AssetImage('assets/images/splash.png');
 
-  static const ImageProvider backgroundSplash3 = AssetImage('assets/images/background_splash.png');
-  static const ImageProvider welcomeScreen = AssetImage('assets/images/welcome_screen.png');
+  static const ImageProvider backgroundSplash3 =
+      AssetImage('assets/images/background_splash.png');
+  static const ImageProvider welcomeScreen =
+      AssetImage('assets/images/welcome_screen.png');
   static const ImageProvider start = AssetImage('assets/images/start.png');
 
-  static const ImageProvider shuruBtn = AssetImage('assets/images/shuru_btn.png');
-  static const ImageProvider ayatBackground = AssetImage('assets/images/ayat_background.png');
+  static const ImageProvider shuruBtn =
+      AssetImage('assets/images/shuru_btn.png');
+  static const ImageProvider ayatBackground =
+      AssetImage('assets/images/ayat_background.png');
   static const ImageProvider fajar = AssetImage('assets/assets/fajar.png');
   static const ImageProvider zohar = AssetImage('assets/assets/zohar.png');
   static const ImageProvider asar = AssetImage('assets/assets/asar.png');
@@ -87,7 +112,6 @@ class ImageString {
   static const ImageProvider isha = AssetImage('assets/assets/isha.png');
 
   static const ImageProvider bellIcon = AssetImage('assets/assets/bell.png');
-  static const ImageProvider locationIcon = AssetImage('assets/assets/location.png');
-
-
+  static const ImageProvider locationIcon =
+      AssetImage('assets/assets/location.png');
 }

@@ -53,7 +53,6 @@ class Localization extends Translations {
           "get": "Now Get Islamic Quiz and Islamic Content",
           "start": "Start",
           "edit_num": "Do you want to edit Number",
-
           "otp_gen": "OTP has already been generated",
           "login": "Log In",
           "login_first": "Log In first",
@@ -89,7 +88,6 @@ class Localization extends Translations {
           "tez": "Jazz Tez",
           "yes": "Yes",
           "no": "No",
-
           "news": "News",
           "time_day_e": "PM",
           "time_day_n": "PM",
@@ -101,7 +99,8 @@ class Localization extends Translations {
           "more": "More",
           "less": "Less",
           "forex": "Forex",
-          "theme": "Theme",
+          "theme": "Dark Mode",
+          "hello": "Hello",
         },
         "ur_PK": {
           "hijri": "ھ",
@@ -137,14 +136,14 @@ class Localization extends Translations {
           "ayat_of_the_day": "آج کی آیات",
           "joke_of_the_day": "آج کا لطیفہ",
           "islamic": "اسلامی",
-          "style": "سٹائل",
+          "style": "اسٹائل",
           "entertainment": "انٹرٹینمنٹ",
           "more": "مزید",
           "time_day_m": "صبح",
           "time_day_an": "دوپہر",
           "less": "لیس",
           "forex": "فاریکس",
-          "theme": "تھیمز",
+          "theme": "ڈارک موڈ",
           "quran": "قرآن",
           "islamic_games": "اسلامک گیمز",
           "islamic_quiz": "اسلامک کوئز",
@@ -201,6 +200,7 @@ class Localization extends Translations {
           "logout": "لوگ آؤٹ",
           "logout_msg": "آپ لوگ آؤٹ کر رہے ہیں",
           "dark": "ڈارک موڈ",
+          "hello": "سلام",
         },
       };
 }

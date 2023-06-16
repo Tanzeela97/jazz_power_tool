@@ -36,7 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   get: ^4.6.5
   flutter_localization: ^0.1.11
-#  flutter_native_splash:
+  flutter_native_splash:
   location: ^4.2.0
   fast_cached_network_image: ^1.2.0
 
@@ -47,7 +47,7 @@ dependencies:
   font_awesome_flutter: ^10.4.0
   circular_rotation: ^0.0.1
   http: ^0.13.5
-  intl: ^0.17.0
+  intl: 
   shimmer: ^2.0.0
   firebase_core: ^2.11.0
   firebase_auth: ^4.5.0
@@ -92,40 +92,22 @@ flutter:
   fonts:
     - family: Poppins
       fonts:
-        - asset: fonts/Poppins-BlackItalic.ttf
-          weight: 100
         - asset: fonts/Poppins-Black.ttf
           weight: 300
         - asset: fonts/Poppins-Bold.ttf
           weight: 400
-        - asset: fonts/Poppins-BoldItalic.ttf
-          weight: 500
-        - asset: fonts/Poppins-ExtraBoldItalic.ttf
-          weight: 700
         - asset: fonts/Poppins-ExtraLight.ttf
           weight: 900
-        - asset: fonts/Poppins-ExtraLightItalic.ttf
-          weight: 900
-        - asset: fonts/Poppins-Italic.ttf
-          weight: 600
         - asset: fonts/Poppins-Light.ttf
           weight: 400
-        - asset: fonts/Poppins-LightItalic.ttf
-          weight: 600
         - asset: fonts/Poppins-Medium.ttf
-          weight: 700
-        - asset: fonts/Poppins-MediumItalic.ttf
           weight: 700
         - asset: fonts/Poppins-Regular.ttf
           weight: 800
         - asset: fonts/Poppins-SemiBold.ttf
           weight: 900
-        - asset: fonts/Poppins-SemiBoldItalic.ttf
-          weight: 400
         - asset: fonts/Poppins-Thin.ttf
           weight: 500
-        - asset: fonts/Poppins-ThinItalic.ttf
-          weight: 600
 
 
     - family: Jameel Noori Nastaleeq

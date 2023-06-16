@@ -6,6 +6,7 @@ import 'dart:math';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jazzpowertoolsapp/app/model/news_feed.dart' as news_feed;
+import 'package:jazzpowertoolsapp/app/views/widgets/ktext1.dart';
 import 'package:jazzpowertoolsapp/app/views/widgets/widget_loader.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
@@ -74,145 +75,88 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
                     children: [
                       Container(
-                        height: 200.h,
                         width: double.infinity,
-                        // padding: const EdgeInsets.fromLTRB(25, 8, 25, 20),
+                        padding: EdgeInsets.fromLTRB(15.w, 20.h, 15.w, 20.h),
                         decoration: BoxDecoration(
-                            color: isDarkMode ? AppColor.black : AppColor.white,
-                            // color: AppColor.white,
-                            image: const DecorationImage(
-                              image: ImageString.backgroundImage,
-                              fit: BoxFit.fill,
-                            ),
-                            borderRadius: const BorderRadius.only(
-                                bottomLeft: Radius.circular(10)),
-                            gradient: const LinearGradient(
-                              // begin: lang == "ur-PK"
-                              //     ? Alignment.centerRight
-                              //     : Alignment.centerLeft,
-                              // end: lang == "ur-PK"
-                              //     ? Alignment.centerLeft
-                              //     : Alignment.centerRight,
-                              colors: [
-                                AppColor.red,
-                                AppColor.red,
-                              ],
-                            )),
+                          color: isDarkMode ? AppColor.black : AppColor.white,
+                          image: const DecorationImage(
+                            image: ImageString.backgroundImage,
+                            fit: BoxFit.fill,
+                          ),
+                          borderRadius: const BorderRadius.only(
+                              bottomLeft: Radius.circular(10)),
+                        ),
                         child: Column(
-                          // crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            SizedBox(
-                              height: 30.h,
-                            ),
-                            Expanded(
-                              child: Row(
-                                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  SizedBox(
-                                    width: 14.w,
-                                  ),
-                                  InkWell(
-                                    onTap: () async {
-                                      if (homeController.login == false) {
-                                        homeController
-                                            .snackBar("login_first".tr);
-                                        return;
-                                      }
-                                      Navigator.pushNamed(
-                                          context, RouteString.profileDetail);
-
-                                    },
-                                    child: Container(
-                                      constraints: const BoxConstraints(
-                                        maxHeight: 60,
-                                        maxWidth: 60,
-                                      ),
-                                      width: 60.w,
-                                      height: 60.w,
-                                      child: CircleAvatar(
-                                        backgroundColor: AppColor.white,
-                                        radius: 30,
-                                        child: Image(
-                                          image: homeController.genderImage,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-
-                                  SizedBox(
-                                    width: 55.w,
-                                  ),
-                                  Container(
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                InkWell(
+                                  onTap: () async {
+                                    if (homeController.login == false) {
+                                      homeController.snackBar("login_first".tr);
+                                      return;
+                                    }
+                                    Navigator.pushNamed(
+                                        context, RouteString.profileDetail);
+                                  },
+                                  child: Container(
                                     constraints: const BoxConstraints(
-                                      maxWidth: 300,
+                                      maxHeight: 60,
+                                      maxWidth: 60,
                                     ),
-                                    width: 120.w,
-                                    child: Text(
-                                      homeController.name,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontFamily: lang == "ur_PK"
-                                            ? "Jameel Noori Nastaleeq"
-                                            : "Poppins",
-                                        fontSize:
-                                            lang == "ur_PK" ? 50.sp : 35.sp,
-                                        fontWeight: FontWeight.bold,
+                                    width: 60.w,
+                                    height: 60.w,
+                                    child: CircleAvatar(
+                                      backgroundColor: AppColor.white,
+                                      radius: 30,
+                                      child: Image(
+                                        image: homeController.genderImage,
+                                        fit: BoxFit.cover,
                                       ),
                                     ),
                                   ),
-
-                                  // Align(
-                                  //   alignment: lang == "ur-PK"? Alignment.topRight: Alignment.topRight,
-                                  //   child: Text(
-                                  //     'username'.tr,
-                                  //     maxLines: 1,
-                                  //     style:  TextStyle(
-                                  //       fontFamily: lang == "ur-PK"
-                                  //           ? "Jameel Noori Nastaleeq"
-                                  //           : "Poppins",
-                                  //    //   fontSize:
-                                  //
-                                  //
-                                  //
-                                  //
-                                  //       color: AppColor.fontColorButton,
-                                  //       fontWeight: FontWeight.bold,
-                                  //     ),
-                                  //   ),
-                                  // ),
-                                  SizedBox(
-                                    width: 16.w,
+                                ),
+                                Container(
+                                  constraints: const BoxConstraints(
+                                    maxWidth: 500,
                                   ),
-                                  // ElevatedButton(
-                                  //   onPressed: () {},
-                                  //   child:  Text(
-                                  //      "login".tr,
-                                  //     style:  TextStyle(
-                                  //       fontFamily: lang == "ur-PK"
-                                  //           ? "Jameel Noori Nastaleeq"
-                                  //           : "Poppins",
-                                  //       color: Colors.black,
-                                  //       fontSize: 18,
-                                  //       fontWeight: FontWeight.w500,
-                                  //     ),
-                                  //   ),
-                                  //   style: ElevatedButton.styleFrom(
-                                  //     primary: Colors.white,
-                                  //     // You can customize other properties like padding, shape, elevation, etc. here
-                                  //   ),
-                                  // ),
-                                  if (homeController.login == false)
-                                    SizedBox(
-                                      height: 60.h,
-                                      width: 110.w,
-                                      child: Container(
+                                  // color: Colors.amber,
+                                  width: homeController.login ? 250.w : 120.w,
+                                  child: Text(
+                                    homeController.login
+                                        ? homeController.name == "Hello"
+                                            ? "hello".tr
+                                            : homeController.name
+                                        : "hello".tr,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    textDirection: TextDirection.ltr,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontFamily: homeController.login
+                                          ? homeController.name == "Hello" &&
+                                                  lang == "ur-PK"
+                                              ? "Jameel Noori Nastaleeq"
+                                              : "Poppins"
+                                          : "Jameel Noori Nastaleeq",
+                                      fontSize: homeController.login
+                                          ? homeController.name == "Hello" &&
+                                                  lang == "ur-PK"
+                                              ? 50.sp
+                                              : 35.sp
+                                          : 50.sp,
+                                      fontWeight: FontWeight.bold,
+                                      color: AppColor.white,
+                                    ),
+                                  ),
+                                ),
+                                homeController.login == false
+                                    ? Container(
                                         constraints:
-                                             BoxConstraints(maxWidth: 300.w),
-                                        height: 60.h,
-                                        width: 100.w,
+                                            const BoxConstraints(maxWidth: 300),
+                                        width: 120.w,
                                         child: TextButton(
                                           onPressed: () async {
                                             if (homeController.login == false) {
@@ -221,9 +165,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                             }
                                           },
                                           style: ElevatedButton.styleFrom(
+                                            backgroundColor: AppColor.white,
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
-                                                  BorderRadius.circular(18),
+                                                  BorderRadius.circular(15),
                                             ),
                                           ),
                                           child: Container(
@@ -234,7 +179,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             decoration: BoxDecoration(
                                               color: AppColor.white,
                                               borderRadius:
-                                                  BorderRadius.circular(18),
+                                                  BorderRadius.circular(15),
                                             ),
                                             child: Text(
                                               "login".tr,
@@ -251,187 +196,200 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    ),
-                                  // if (homeController.login)
-                                  //   Container(
-                                  //     constraints: const BoxConstraints(
-                                  //         maxHeight: 40, maxWidth: 40),
-                                  //     width: 40.w,
-                                  //     height: 40.w,
-                                  //     decoration: BoxDecoration(
-                                  //       shape: BoxShape.circle,
-                                  //       color: AppColor.red,
-                                  //     ),
-                                  //     // child: Image(
-                                  //     //   image: ImageString.bell,
-                                  //     //   width: 30,
-                                  //     //   height: 30,
-                                  //     // ),
-                                  //   ),
-                                ],
-                              ),
+                                      )
+                                    : const SizedBox(),
+                              ],
                             ),
-                            // Text('منگل 14 اپریل 2023',
-                            //     style: TextStyle(
-                            //         fontFamily: 'Jameel Noori Nastaleeq',
-                            //         fontSize: 19.w,
-                            //         color: AppColor.white)),
-                             SizedBox(
-                              height: 10.h,
+                            SizedBox(
+                              height: 20.h,
                             ),
-                            Expanded(
-                              child: Row(
-                                textDirection: TextDirection.ltr,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                   SizedBox(
-                                    width: 10.w,
-                                  ),
-                                  // Container(
-                                  //   width: 75.w,
-                                  //   alignment: lang == "ur"
-                                  //       ? Alignment.centerRight
-                                  //       : Alignment.centerLeft,
-                                  //   // color: Colors.amber,
-                                  //   child: FittedBox(
-                                  //     child: Text(
-                                  //       homeController
-                                  //           .selectedCity.name,
-                                  //       maxLines: 1,
-                                  //       overflow:
-                                  //       TextOverflow.ellipsis,
-                                  //       textAlign: lang == "ur"
-                                  //           ? TextAlign.right
-                                  //           : TextAlign.left,
-                                  //       style: TextStyle(
-                                  //         fontFamily: lang == "ur"
-                                  //             ? 'j_n_n'
-                                  //             : "Poppins",
-                                  //         fontWeight:
-                                  //         FontWeight.normal,
-                                  //         fontSize: lang == "ur"
-                                  //             ? 22.sp
-                                  //             : 18.sp,
-                                  //         color: AppColor
-                                  //             .fontColorButton,
-                                  //       ),
-                                  //     ),
-                                  //   ),
-                                  // ),
-
-                                  InkWell(
-                                      onTap: () {
-                                        Navigator.pushNamed(
-                                            context, RouteString.cityListScreen);
-                                      },
-                                      child: const Image(
-                                        image: ImageString.locationIcon,
-                                        height: 25,
-                                      )),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Container(
-                                    width: 90.w,
-                                    height: 50.h,
-                                    constraints:
-                                         BoxConstraints.expand(width: 90.w,
-                                          height: 60.h,),
-                                    decoration: const BoxDecoration(
-                                      // color: Colors.pink[300],
-                                      image: DecorationImage(
-                                        image: ImageString.weather,
-                                        fit: BoxFit.contain,
-                                      ),
-                                    ),
-                                    child:  Padding(
-                                        padding: const EdgeInsets.all(14),
-                                        child: Text('20°C',
-                                          textDirection: TextDirection.ltr,
-                                            style: TextStyle(
-                                                color: AppColor.white,
-                                                fontSize: 16.sp,
-                                                fontFamily: lang == "ur_PK"
-                                                    ? "Jameel Noori Nastaleeq"
-                                                    : "Poppins",
-                                                fontWeight: FontWeight.normal,
-                                              ))),
-                                  ),
-                                  // InkWell(onTap: () {},
-                                  //     child: const Image(
-                                  //       image: ImageString.weather, height: 90,width: 80,)),
-                                  // InkWell(onTap: () {
-                                  //   Navigator.pushReplacementNamed(
-                                  //       context, RouteString.forexScreen);
-                                  // },
-                                  //     child: const Image(
-                                  //       image: ImageString.forex, height: 80,)),
-                                   SizedBox(
-                                    width: 6.w,
-                                  ),
-                                  InkWell(
+                            Row(
+                              textDirection: TextDirection.ltr,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                InkWell(
                                     onTap: () {
+                                      Navigator.pushNamed(
+                                          context, RouteString.cityListScreen);
+                                    },
+                                    child: const Image(
+                                      image: ImageString.locationIcon,
+                                      height: 25,
+                                    )),
+                                Container(
+                                  constraints:
+                                      const BoxConstraints(maxWidth: 200),
+                                  width: 90.w,
+                                  child: TextButton(
+                                    onPressed: () async {},
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: const Color(0xffA2BC86),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                    ),
+                                    child: Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 5),
+                                      decoration: BoxDecoration(
+                                        color: const Color(0xffA2BC86),
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Image(
+                                            image: ImageString.sun,
+                                            width: 20.w,
+                                            height: 20,
+                                          ),
+                                          SizedBox(
+                                            width: 5.w,
+                                          ),
+                                          Container(
+                                            // width: 50.w,
+                                            constraints: BoxConstraints(
+                                              maxWidth: 45.w,
+                                            ),
+                                            child: Text(
+                                              "20°C",
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              textDirection: TextDirection.ltr,
+                                              style: TextStyle(
+                                                fontFamily: "Poppins",
+                                                color: AppColor.black,
+                                                fontSize: 15.sp,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  constraints:
+                                      const BoxConstraints(maxWidth: 200),
+                                  width: 90.w,
+                                  child: TextButton(
+                                    onPressed: () async {
                                       Navigator.pushReplacementNamed(
                                           context, RouteString.forexScreen);
                                     },
-                                    child: Container(
-                                      width: 100.w,
-                                      height: 42.h,
-                                      constraints:
-                                       BoxConstraints.expand(width: 80.w,
-                                        height: 45.h,),
-                                      decoration: const BoxDecoration(
-                                        // color: Colors.pink[300],
-                                        image: DecorationImage(
-                                          image: ImageString.forex,
-                                          fit: BoxFit.fill,
-                                        ),
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: const Color(0xff678B46),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(15),
                                       ),
-                                      child: Padding(
-                                        padding: EdgeInsets.all(6),
-                                        child: Text(
-                                          'forex'.tr,
-                                          style: TextStyle(
-                                            color: AppColor.white,
-                                            fontSize: 16.sp,
-                                            fontFamily: lang == "ur_PK"
-                                                ? "Jameel Noori Nastaleeq"
-                                                : "Poppins",
-                                            fontWeight: FontWeight.normal,
+                                    ),
+                                    child: Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 5),
+                                      decoration: BoxDecoration(
+                                        color: const Color(0xff678B46),
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Image(
+                                            image: ImageString.forexButton,
+                                            width: 20.w,
+                                            height: 20,
                                           ),
-                                        ),
+                                          SizedBox(
+                                            width: 5.w,
+                                          ),
+                                          Container(
+                                            // width: 50.w,
+                                            constraints: BoxConstraints(
+                                              maxWidth: 45.w,
+                                            ),
+                                            child: Text(
+                                              "Forex",
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              textDirection: TextDirection.ltr,
+                                              style: TextStyle(
+                                                fontFamily: "Poppins",
+                                                color: AppColor.black,
+                                                fontSize: 15.sp,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ),
-                                  InkWell(
-                                      onTap: () {},
-                                      child: Container(
-                                        //    color: AppColor.black,
-                                        width: 120.w,
-                                        height: 90.h,
-                                        constraints:  BoxConstraints.expand(
-
-                                          width: 110.w,
-                                          height: 60.h,
-                                        ),
-                                        child: const Image(
-                                          image: ImageString.balance,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      )),
-
-                                  InkWell(
-                                      onTap: () {},
-                                      child: const Image(
-                                        image: ImageString.bellIcon,
-                                      )),
-
-                                   SizedBox(
-                                    width: 6.w,
+                                ),
+                                Container(
+                                  constraints:
+                                      const BoxConstraints(maxWidth: 200),
+                                  width: 100.w,
+                                  child: TextButton(
+                                    onPressed: () async {},
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: AppColor.white,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                    ),
+                                    child: Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 5),
+                                      decoration: BoxDecoration(
+                                        color: AppColor.white,
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Image(
+                                            image: ImageString.money,
+                                            width: 20.w,
+                                            height: 20,
+                                          ),
+                                          SizedBox(
+                                            width: 5.w,
+                                          ),
+                                          Container(
+                                            // width: 50.w,
+                                            constraints: BoxConstraints(
+                                              maxWidth: 50.w,
+                                            ),
+                                            child: FittedBox(
+                                              child: Text(
+                                                "RS. 421.00",
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                                textDirection:
+                                                    TextDirection.ltr,
+                                                style: TextStyle(
+                                                  fontFamily: "Poppins",
+                                                  color: AppColor.black,
+                                                  fontSize: 15.sp,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                                   ),
-                                ],
-                              ),
+                                ),
+                                InkWell(
+                                    onTap: () {},
+                                    child: const Image(
+                                      image: ImageString.bellIcon,
+                                    )),
+                              ],
                             ),
                           ],
                         ),
@@ -488,7 +446,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                               ? "Jameel Noori Nastaleeq"
                                               : "Poppins",
                                           fontWeight: FontWeight.bold,
-
                                         ),
                                         SizedBox(
                                           height: 2.h,
@@ -527,7 +484,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         'Jameel Noori Nastaleeq',
                                                     fontWeight:
                                                         FontWeight.normal,
-
                                                   ),
                                                 ),
                                               ),
@@ -883,7 +839,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       SizedBox(
                         height: 10.h,
                       ),
-
                       Card(
                         child: Padding(
                           padding: EdgeInsets.all(15.w),
@@ -904,11 +859,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                       : Alignment.topLeft,
                                   child: Text("activity".tr,
                                       style: TextStyle(
-                                        fontSize: lang == "ur-PK" ? 35 : 25,
+                                        fontSize:
+                                            lang == "ur-PK" ? 35.sp : 25.sp,
                                         fontFamily: lang == "ur-PK"
                                             ? "Jameel Noori Nastaleeq"
                                             : "Poppins",
-                                        fontWeight: FontWeight.bold,
+                                        fontWeight: FontWeight.normal,
                                         color: isDarkMode
                                             ? AppColor.white
                                             : AppColor.black,
@@ -959,7 +915,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                           fontFamily: lang == "ur-PK"
                                               ? "Jameel Noori Nastaleeq"
                                               : "Poppins",
-                                          fontSize: lang == "ur-PK" ? 30 : 20,
+                                          fontSize:
+                                              lang == "ur-PK" ? 24.sp : 18.sp,
                                           color: isDarkMode
                                               ? AppColor.white
                                               : AppColor.black,
@@ -1001,7 +958,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                           fontFamily: lang == "ur-PK"
                                               ? "Jameel Noori Nastaleeq"
                                               : "Poppins",
-                                          fontSize: lang == "ur-PK" ? 30 : 20,
+                                          fontSize:
+                                              lang == "ur-PK" ? 24.sp : 18.sp,
                                           color: isDarkMode
                                               ? AppColor.white
                                               : AppColor.black,
@@ -1048,7 +1006,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                           fontFamily: lang == "ur-PK"
                                               ? "Jameel Noori Nastaleeq"
                                               : "Poppins",
-                                          fontSize: lang == "ur-PK" ? 30 : 18,
+                                          fontSize:
+                                              lang == "ur-PK" ? 24.sp : 18.sp,
                                           color: isDarkMode
                                               ? AppColor.white
                                               : AppColor.black,
@@ -1093,7 +1052,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                           fontFamily: lang == "ur-PK"
                                               ? "Jameel Noori Nastaleeq"
                                               : "Poppins",
-                                          fontSize: lang == "ur-PK" ? 30 : 20,
+                                          fontSize:
+                                              lang == "ur-PK" ? 24.sp : 18.sp,
                                           color: isDarkMode
                                               ? AppColor.white
                                               : AppColor.black,
@@ -1132,11 +1092,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Text(
                             'news'.tr,
                             style: TextStyle(
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.normal,
                               fontFamily: lang == "ur-PK"
                                   ? "Jameel Noori Nastaleeq"
                                   : "Poppins",
-                              fontSize: lang == "ur-PK" ? 40 : 35,
+                              fontSize: lang == "ur-PK" ? 35.sp : 25.sp,
                             ),
                           ),
                         ),
@@ -1144,120 +1104,170 @@ class _HomeScreenState extends State<HomeScreen> {
 
                       ///news api
 
-                      Directionality(
-                        textDirection: lang == "ur-PK"
-                            ? TextDirection.ltr
-                            : TextDirection.rtl,
-                        child: Container(
-                          color: isDarkMode ? AppColor.black : AppColor.white,
-                          height: 430.0,
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Column(
-                              children: List.generate(
-                                min(3, homeController.newsList.length ?? 0),
-                                (index) {
-                                  final newsItem =
-                                      homeController.newsList[index];
-                                  return ListTile(
-                                    contentPadding: const EdgeInsets.symmetric(
-                                        horizontal: 16.0),
-                                    title: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        const SizedBox(height: 10),
-                                        ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(10.0),
-                                          child: FadeInImage.assetNetwork(
-                                            placeholder:
-                                                'assets/images/jazz_logo.png',
-                                            image: newsItem.image ?? "",
-                                            width: 100.0,
-                                            height: 90.0,
-                                            fit: BoxFit.cover,
-                                            imageErrorBuilder: (context,
-                                                exception, stackTrace) {
-                                              return Image.asset(
-                                                'assets/images/jazz_logo.png',
-                                                width: 100.0,
-                                                height: 90.0,
-                                                fit: BoxFit.cover,
-                                              );
-                                            },
-                                          ),
-                                        ),
-                                        const SizedBox(width: 16.0),
-                                        Expanded(
-                                          child: Text(
-                                            newsItem.title ?? "...",
-                                            textDirection: TextDirection.rtl,
-                                            style: TextStyle(
-                                              color: isDarkMode
-                                                  ? AppColor.white
-                                                  : AppColor.black,
-                                              fontSize: 14,
-                                              fontFamily: lang == "ur-PK"
-                                                  ? "Jameel Noori Nastaleeq"
-                                                  : "Poppins",
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(width: 4.0),
-                                      ],
-                                    ),
-                                    onTap: () {
-                                      Navigator.popAndPushNamed(
-                                          context, RouteString.newsDescription);
-                                    },
-                                    subtitle: Padding(
-                                      padding: const EdgeInsets.only(top: 8.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
+                      Container(
+                        color: isDarkMode ? AppColor.black : AppColor.white,
+                        // height: 430.0,
+                        width: 390.w,
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Column(
+                            children: List.generate(
+                              min(3, homeController.newsList.length ?? 0),
+                              (index) {
+                                // final newsItem =
+                                //     homeController.newsList[index];
+                                return InkWell(
+                                  onTap: () {
+                                    Navigator.popAndPushNamed(
+                                        context, RouteString.newsDescription);
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 15.w, vertical: 10.h),
+                                    child: Row(
+                                        // mainAxisAlignment:
+                                        //     MainAxisAlignment.spaceBetween,
                                         children: [
-                                          const SizedBox(width: 20.0),
-                                          const Icon(Icons.access_time),
-                                          const SizedBox(width: 10.0),
-                                          Text(
-                                            (newsItem.pubdate ?? "").length >=
-                                                    20
-                                                ? (newsItem.pubdate ?? "")
-                                                    .substring(14, 20)
-                                                : (newsItem.pubdate ?? ""),
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              color: isDarkMode
-                                                  ? AppColor.white
-                                                  : AppColor.black,
-                                              fontFamily: lang == "ur-PK"
-                                                  ? "Jameel Noori Nastaleeq"
-                                                  : "Poppins",
+                                          Container(
+                                            constraints: BoxConstraints(
+                                              maxWidth: 360.w / 2,
                                             ),
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 3,
+                                            // width: 360.w / 2,
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                              child: FadeInImage.assetNetwork(
+                                                placeholder:
+                                                    'assets/images/jazz_logo.png',
+                                                image: homeController
+                                                        .newsList[index]
+                                                        .image ??
+                                                    "",
+                                                width: 150.w,
+                                                height: 120,
+                                                fit: BoxFit.fill,
+                                                imageErrorBuilder: (context,
+                                                    exception, stackTrace) {
+                                                  return Image.asset(
+                                                    'assets/images/jazz_logo.png',
+                                                    // width: 50.0,
+                                                    height: 120.0,
+                                                    fit: BoxFit.fill,
+                                                  );
+                                                },
+                                              ),
+                                            ),
                                           ),
-                                          const SizedBox(width: 120.0),
-                                          Image.network(
-                                            newsItem.icon ?? '',
-                                            width: 20.0,
-                                            height: 20.0,
-                                            fit: BoxFit.contain,
-                                            errorBuilder: (_, __, ___) =>
-                                                Image.asset(
-                                                    'assets/images/jazz_logo.png'),
+                                          SizedBox(
+                                            width: 15.w,
                                           ),
-                                          const SizedBox(width: 4.0),
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
+                                          SizedBox(
+                                            width: 360.w / 2,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  homeController.newsList[index]
+                                                          .title ??
+                                                      "...",
+                                                  // textDirection: TextDirection.rtl,
+                                                  maxLines: 3,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  textAlign: lang == "ur-PK"
+                                                      ? TextAlign.right
+                                                      : TextAlign.left,
+                                                  style: TextStyle(
+                                                    color: isDarkMode
+                                                        ? AppColor.white
+                                                        : AppColor.black,
+                                                    fontSize: lang == "ur-PK"
+                                                        ? 24.sp
+                                                        : 18.sp,
+                                                    fontFamily: lang == "ur-PK"
+                                                        ? "Jameel Noori Nastaleeq"
+                                                        : "Poppins",
+                                                  ),
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Image.network(
+                                                      homeController
+                                                              .newsList[index]
+                                                              .icon ??
+                                                          '',
+                                                      width: 20.0,
+                                                      height: 20.0,
+                                                      fit: BoxFit.contain,
+                                                      errorBuilder:
+                                                          (_, __, ___) =>
+                                                              Image.asset(
+                                                        'assets/images/jazz_logo.png',
+                                                        width: 20.0,
+                                                        height: 20.0,
+                                                      ),
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        const Icon(
+                                                            Icons.access_time),
+                                                        const SizedBox(
+                                                            width: 10.0),
+                                                        Text(
+                                                          (homeController.newsList[index].pubdate ??
+                                                                          "")
+                                                                      .length >=
+                                                                  20
+                                                              ? (homeController
+                                                                          .newsList[
+                                                                              index]
+                                                                          .pubdate ??
+                                                                      "")
+                                                                  .substring(
+                                                                      14, 20)
+                                                              : (homeController
+                                                                      .newsList[
+                                                                          index]
+                                                                      .pubdate ??
+                                                                  ""),
+                                                          // textDirection:
+                                                          //     TextDirection.rtl,
+                                                          style: TextStyle(
+                                                            fontSize: 14,
+                                                            color: isDarkMode
+                                                                ? AppColor.white
+                                                                : AppColor
+                                                                    .black,
+                                                            fontFamily: lang ==
+                                                                    "ur-PK"
+                                                                ? "Jameel Noori Nastaleeq"
+                                                                : "Poppins",
+                                                          ),
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          maxLines: 3,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ]),
+                                  ),
+                                );
+                              },
                             ),
                           ),
                         ),
+                      ),
+                      SizedBox(
+                        height: 10.h,
                       ),
 
                       //   Directionality(

@@ -83,22 +83,24 @@ class HomeScreenController extends GetxController {
 
   get news_List => _newsList.value;
 
- String lang = window.locale.languageCode;
+  String lang = window.locale.languageCode;
 
   HomeScreenController(web) {
     setWeb(web);
 
-    getFetchNewsFeed(lang);
     getNamazTimings(selectedCity);
-    newsData(lang);
+    getFetchNewsFeed("en");
+    // newsData(lang);
   }
 
- changeLanguage(String newLang) async {
+  changeLanguage(String newLang) async {
     isLoading = true;
+    print("change $newLang");
     newsList = [];
     update();
     newsList = await RemoteServices.fetchNewsData(newLang);
     isLoading = false;
+    print("${newsList[1].title}");
 
     update();
   }
@@ -108,7 +110,7 @@ class HomeScreenController extends GetxController {
 //    String lang = Get.locale!.toLanguageTag();
     try {
       update();
-      await getFetchNewsFeed( lang );
+      await getFetchNewsFeed(lang);
       update();
     } catch (error) {
       print('Error occurred: $error');
@@ -131,7 +133,7 @@ class HomeScreenController extends GetxController {
   Future<void> onRefresh() async {
     timer!.cancel();
     await getNamazTimings(selectedCity);
-    await getFetchNewsFeed(   Get.locale!.toLanguageTag());
+    await getFetchNewsFeed(Get.locale!.toLanguageTag());
   }
 
   loadCities() async {
@@ -188,17 +190,17 @@ class HomeScreenController extends GetxController {
     update();
     try {
       update();
+      newsFeeds = [];
       final List<news_data.Data> newsList =
           (await RemoteServices.fetchNewsData(lang));
       if (newsList != null) {
         newsFeeds = newsList;
+        print(newsFeeds[0].pubdate);
         update();
       } else {
-
         //  print('API response is null');
       }
     } catch (err) {
-
       print('Error state: $err');
     }
   }
@@ -212,7 +214,7 @@ class HomeScreenController extends GetxController {
 
     ///joke
     jokeOfTheDay = await RemoteServices.getJokeOfTheDay();
-    newsList = await RemoteServices.fetchNewsData(   Get.locale!.toLanguageTag());
+    newsList = await RemoteServices.fetchNewsData(Get.locale!.toLanguageTag());
     namazTimeDay = await RemoteServices.getNamazTimings(city);
     if (kIsWeb) {
     } else {}
@@ -260,9 +262,7 @@ class HomeScreenController extends GetxController {
     subscription = await ReadCache.getBool(key: 'subscription') ?? false;
     number = await ReadCache.getString(key: "number") ?? "";
 
-
     final String? date = await ReadCache.getString(key: 'date_str');
-
 
     String? dateStr;
     if (date != null) {
@@ -286,7 +286,6 @@ class HomeScreenController extends GetxController {
         // print(dateStr);
         calculateDurations(dateStr, timeDay, durations);
       } else {
-
         ayatOfTheDay = AyatOfTheDay.fromJson(
             await ReadCache.getJson(key: "ayat_of_the_day"));
         jokeOfTheDay = JokeOfTheDay.fromJson(
@@ -312,7 +311,6 @@ class HomeScreenController extends GetxController {
       dateStr = namazTimeDay.dateStr;
       calculateDurations(dateStr, namazTimeDay, null);
     }
-
   }
 
   calculateDurations(
@@ -344,7 +342,6 @@ class HomeScreenController extends GetxController {
 
     Map namaz = {};
     for (int i = 0, j = 1; i < prayerTimes.length; i++, j++) {
-
       if (DateTime.parse("$dateStr ${prayerTimes[i]}")
               .difference(DateTime.now())
               .inMinutes >
@@ -494,7 +491,6 @@ class HomeScreenController extends GetxController {
       timeDayIsha = "time_day_m".tr;
     }
 
-
     nextNamazTimer();
     isLoading = false;
     update();
@@ -503,7 +499,6 @@ class HomeScreenController extends GetxController {
   nextNamazTimer() async {
     print("refresh $refres");
     timer = Timer.periodic(Duration(seconds: refres), (timer) async {
-
       elapsedDuration += Duration(minutes: 1);
 
       update();
@@ -511,8 +506,6 @@ class HomeScreenController extends GetxController {
       if (elapsedDuration.inMinutes >= nextNamazDuration.inMinutes - 1) {
         timer.cancel();
         update();
-
-
 
         final List<String>? stringList =
             await ReadCache.getStringList(key: 'durations');
@@ -522,7 +515,6 @@ class HomeScreenController extends GetxController {
         final days = DateTime.parse(dateStr).difference(DateTime.now());
 
         if (currentNamaz == "fajar") {
-
           getNamazTimings(selectedCity);
           update();
           return;

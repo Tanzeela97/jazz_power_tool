@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:cache_manager/core/write_cache_service.dart';
@@ -21,6 +20,7 @@ import '../model/namaz_time_day.dart';
 import '../model/news_feed.dart' as news_feed;
 import 'fetch_api_service.dart';
 import 'package:http/http.dart' as http;
+
 class RemoteServices {
   static Future<List<City>> getCityList(int start, int end) async {
     try {
@@ -80,9 +80,9 @@ class RemoteServices {
     // print(uri);
     dynamic response = await FecthApiService.get(uri: uri);
 
-
     return NamazTimeDay.fromJson(response);
   }
+
   ///ayat hardcoded through json
   static Future getAyatOfTheDay() async {
     try {
@@ -150,56 +150,45 @@ class RemoteServices {
 //
 //
 // }
-///News Api
+  ///News Api
   ///
-  static  Future<List<news_feed.Data>>  fetchNewsData(String lang) async {
-
-
-
-    final response = await http.get(Uri.parse(  lang == "ur"
-
+  static Future<List<news_feed.Data>> fetchNewsData(String lang) async {
+    final response = await http.get(Uri.parse(Get.locale!.languageCode == "ur"
         ? '${ApiString.newsFeedUrl}' + '${ApiString.urduNews}'
-        : '${ApiString.englishNews}'));
+        : '${ApiString.newsFeedUrl}' + '${ApiString.englishNews}'));
 //    final response = await http.get(Uri.parse(ApiString.newsFeedUrl+'sourcelist=AAJ_NEWS_PK.NEWS.TOPSTORIES.TEXT'));
 
-    print(' news');
-    print(response);
-
-
     if (response.statusCode == 200) {
-        final decodedData = utf8.decode(response.bodyBytes);
-        var data = json.decode(decodedData);
-        print(data);
-        //var data = json.decode(response.body);
-        List<dynamic> responseData = data['data'] as List<dynamic>;
-        final List<news_feed.Data> newsList = responseData.map((data) => news_feed.Data.fromJson(data)).toList();
-        return newsList;
-
-
+      final decodedData = utf8.decode(response.bodyBytes);
+      var data = json.decode(decodedData);
+      // print(data);
+      //var data = json.decode(response.body);
+      List<dynamic> responseData = data['data'] as List<dynamic>;
+      final List<news_feed.Data> newsList =
+          responseData.map((data) => news_feed.Data.fromJson(data)).toList();
+      return newsList;
     } else {
       throw Exception('Failed to fetch data from the API');
     }
   }
-///forex
-  static  Future<List<forex.Data>>  getForexData() async {
 
-    final response = await http.get(Uri.parse('https://ap-1.ixon.cc/api/v2/forex?clientid=10010&api_key=c4d3db743df74385b7e7&currency=usd,aed,gbp'));
-
+  ///forex
+  static Future<List<forex.Data>> getForexData() async {
+    final response = await http.get(Uri.parse(
+        'https://ap-1.ixon.cc/api/v2/forex?clientid=10010&api_key=c4d3db743df74385b7e7&currency=usd,aed,gbp'));
 
     if (response.statusCode == 200) {
       final decodedData = utf8.decode(response.bodyBytes);
       var data = json.decode(decodedData);
       //var data = json.decode(response.body);
       List<dynamic> responseData = data['data'] as List<dynamic>;
-      final List<forex.Data> forexList = responseData.map((data) => forex.Data.fromJson(data)).toList();
+      final List<forex.Data> forexList =
+          responseData.map((data) => forex.Data.fromJson(data)).toList();
       return forexList;
-
-
     } else {
       throw Exception('Failed to fetch data from the API');
     }
   }
-
 
   ///verifyOtp
   static Future verifyOtp(String? number, String code) async {
@@ -228,6 +217,7 @@ class RemoteServices {
 
     return AuthStatusModel.fromJson(response[0]);
   }
+
   ///subscription
   static Future subscription(String? number, String token) async {
     const dt = '2020-09-17T12:59:43.377Z';
@@ -258,6 +248,7 @@ class RemoteServices {
 
     // return AuthStatusModel.fromJson(response.first);
   }
+
   ///checkStatus
   static Future checkStatus(String? number) async {
     if (number!.isEmpty) {
@@ -270,6 +261,7 @@ class RemoteServices {
     });
     await FecthApiService.get(uri: uri);
   }
+
   ///unSubscription
   static Future unSubscription(String? number) async {
     if (number!.isEmpty) {
@@ -289,6 +281,7 @@ class RemoteServices {
 
     // return AuthStatusModel.fromJson(response.first);
   }
+
   /// loginWithOtp
   static Future loginWithOtp(String? number) async {
     if (number!.isEmpty) {
@@ -308,9 +301,3 @@ class RemoteServices {
     return response != null ? response[0]['status_text'] : null;
   }
 }
-
-
-
-
-
-
